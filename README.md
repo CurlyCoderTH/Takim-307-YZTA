@@ -14,7 +14,6 @@
 | [İSİM 4] | Developer | [LinkedIn] |
 | [İSİM 5] | Developer | [LinkedIn] |
 
-> ⚠️ İsimleri, rolleri ve LinkedIn linklerini takımca doldurun. Rol dağılımını ilk toplantıda netleştirin.
 
 ## Ürün İsmi
 
