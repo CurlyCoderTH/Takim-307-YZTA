@@ -11,7 +11,7 @@
 | [İSİM 1] | Product Owner | [LinkedIn] |
 | [İSİM 2] | Scrum Master | [LinkedIn] |
 | Mustafa YAZBAHAR | Developer | [LinkedIn] |
-| [İSİM 4] | Developer | [LinkedIn] |
+| M.Buğrahan BAYRAKCİ | Developer | [LinkedIn] |
 | [İSİM 5] | Developer | [LinkedIn] |
 
 
