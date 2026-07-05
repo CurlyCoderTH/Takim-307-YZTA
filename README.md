@@ -50,7 +50,7 @@ CogniTrace
 
 Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task) gösterirken, mavi item'lar story'leri temsil etmektedir.
 
-- **Daily Scrum**: Daily Scrum toplantılarının zamansal senkronizasyonu kolaylaştırmak ve hızlı aksiyon alabilmek adına WhatsApp üzerinden yapılmasına karar verilmiştir. Daily Scrum notları: [Sprint 1 Daily Scrum Notları](ProjectManagement/Sprint1Documents/DailyScrumMeetingNotesSprint1.docx?raw=true)
+- **Daily Scrum**: Daily Scrum toplantılarının zamansal senkronizasyonu kolaylaştırmak ve hızlı aksiyon alabilmek adına WhatsApp üzerinden yapılmasına karar verilmiştir. Daily Scrum notları: [Sprint 1 Daily Scrum Notları](https://github.com/CurlyCoderTH/Takim-307-YZTA/blob/main/ProjectManagement/Sprint1Documents/DailyScrumMeetingNotesSprint1.docx?raw=true)
 
 - **Sprint board update**: Sprint board screenshotları: 
   ![Backlog 1](ProjectManagement/Sprint1Documents/backlog1.png)
