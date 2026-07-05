@@ -38,14 +38,23 @@ görüntüde olmayan şeyler hakkında varsayım yapma. Türkçe yanıt ver.
 """
 
 
+# İstemci bir kez oluşturulup saklanır; her çağrıda yeniden oluşturulursa
+# Python geçici nesneyi erken temizleyip bağlantıyı kapatabiliyor
+# ("Cannot send a request, as the client has been closed" hatası).
+_CLIENT: genai.Client | None = None
+
+
 def _istemci() -> genai.Client:
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise RuntimeError(
-            "GEMINI_API_KEY bulunamadı. .env dosyası oluşturup anahtarınızı ekleyin "
-            "(https://aistudio.google.com adresinden ücretsiz alınır)."
-        )
-    return genai.Client(api_key=api_key)
+    global _CLIENT
+    if _CLIENT is None:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise RuntimeError(
+                "GEMINI_API_KEY bulunamadı. .env dosyası oluşturup anahtarınızı ekleyin "
+                "(https://aistudio.google.com adresinden ücretsiz alınır)."
+            )
+        _CLIENT = genai.Client(api_key=api_key)
+    return _CLIENT
 
 
 def analiz_et(
@@ -68,7 +77,8 @@ def analiz_et(
             "```html\n" + html_kodu[:20000] + "\n```"
         )
 
-    yanit = _istemci().models.generate_content(
+    istemci = _istemci()
+    yanit = istemci.models.generate_content(
         model=MODEL,
         contents=icerik,
         config=types.GenerateContentConfig(response_mime_type="application/json"),

@@ -1,4 +1,4 @@
-# EmpatiLens Prototip — Kurulum ve Çalıştırma
+# CogniTrace Prototip — Kurulum ve Çalıştırma
 
 Sprint 1 dikey dilimi: ekran görüntüsü + persona seçimi → bilişsel yük analizi.
 

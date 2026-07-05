@@ -42,23 +42,37 @@ CogniTrace
 
 # Sprint 1
 
+- **Sprint içinde tamamlanması tahmin edilen puan:** 90 Puan
+
+- **Puan tamamlama mantığı:** Proje boyunca tamamlanması gereken toplam backlog puanı 300'dür. İlk sprint araştırma, kurulum ve temel prototip odaklı olduğundan 90 puan; Sprint 2'de çekirdek özellik geliştirme (110 puan); Sprint 3'te tamamlama, test ve sunum (100 puan) hedeflenmiştir. Detaylı story listesi: [backlog/product-backlog.md](backlog/product-backlog.md)
+
 - **Backlog düzeni ve Story seçimleri**: Backlog'umuz ilk sprintte odaklanılması gereken temel altyapı ve fizibilite story'lerine göre düzenlenmiştir. Sprint başına tahmin edilen puan sayısını geçmeyecek şekilde sıradan seçimler yapılmaktadır.  
 
 Story'ler yapılacak işlere (task'lere) bölünmüştür. Miro Board'da gözüken kırmızı item'lar yapılacak işleri (task) gösterirken, mavi item'lar story'leri temsil etmektedir.
 
-- **Daily Scrum**: Daily Scrum toplantılarının zamansal senkronizasyonu kolaylaştırmak ve hızlı aksiyon alabilmek adına WhatsApp üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı yazışma örnekleri jpeg veya word olarak projenin GitHub reposundaki ilgili sprint klasöründe tarafımızdan paylaşılmaktadır.
+- **Daily Scrum**: Daily Scrum toplantılarının zamansal senkronizasyonu kolaylaştırmak ve hızlı aksiyon alabilmek adına WhatsApp üzerinden yapılmasına karar verilmiştir. Daily Scrum notları: [Sprint 1 Daily Scrum Notları](ProjectManagement/Sprint1Documents/DailyScrumMeetingNotesSprint1.docx?raw=true)
 
 - **Sprint board update**: Sprint board screenshotları: 
-*![Backlog 1]*
+  ![Backlog 1](ProjectManagement/Sprint1Documents/backlog1.png)
+  ![Backlog 2](ProjectManagement/Sprint1Documents/backlog2.png)
+  ![Backlog 3](ProjectManagement/Sprint1Documents/backlog3.png)
 
-- **Ürün Durumu**: 
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Ürün 1](ProjectManagement/Sprint1Documents/productss1.png)
+  ![Ürün 2](ProjectManagement/Sprint1Documents/productss2.png)
+  ![Ürün 3](ProjectManagement/Sprint1Documents/productss3.png)
+  ![Ürün 4](ProjectManagement/Sprint1Documents/productss4.png)
+  ![Ürün 5](ProjectManagement/Sprint1Documents/productss5.png)
+  ![Ürün 6](ProjectManagement/Sprint1Documents/productss6.png)
 
 - **Sprint Review**: 
-Alınan kararlar: 
+Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona seti (disleksi, renk körlüğü, DEHB, düşük görme) belirlenmiştir. Literatür taraması tamamlanmış ([docs/literatur-taramasi.md](docs/literatur-taramasi.md)); benzer akademik çalışmalar (UXAgent, AXNav) incelenmiş, birebir rakip ürün olmadığı doğrulanarak özgünlük iddiası güçlendirilmiştir. Prototip çalışır durumdadır: ekran görüntüsü yükleme, Gemini ile persona bazlı bilişsel yük analizi ve renk körlüğü simülasyonu test edilmiştir. Geliştirme sırasında karşılaşılan Gemini istemci bağlantı hatası tespit edilip giderilmiştir. URL'den otomatik ekran görüntüsü alma, koordinatör ajan orkestrasyonu ve uygulamanın canlıya alınması Sprint 2'ye aktarılmıştır. Sprint Review katılımcıları: Gökhan Dumlupınar, Tuana Hergüner, M.Buğrahan Bayrakçı, Mustafa Yazbahar, Şükran Akşimşek
 
 - **Sprint Retrospective:**
   - WhatsApp üzerindeki günlük iletişim sıklığının artırılması ve kod commit'lerinin daha düzenli yapılması kararlaştırılmıştır.
-  
+  - Daily scrum için sabit bir akşam saati belirlenmiştir.
+  - Kota riskine karşı her üyenin kendi Gemini API anahtarını alması kararlaştırılmıştır.
+  - Sprint 2 görev dağılımının planlama toplantısında epic bazında yapılmasına karar verilmiştir.
 
 ---
 

@@ -1,4 +1,4 @@
-"""EmpatiLens — Bilişsel Yük ve Erişilebilirlik Analiz Ajanı (Sprint 1 prototipi).
+"""CogniTrace — Bilişsel Yük ve Erişilebilirlik Analiz Ajanı (Sprint 1 prototipi).
 
 Çalıştırma:  streamlit run app.py
 Gereksinim:  .env dosyasında GEMINI_API_KEY (bkz. .env.example)
@@ -16,8 +16,8 @@ from simulation import DONUSUM_MATRISLERI, simule_et
 
 load_dotenv()
 
-st.set_page_config(page_title="EmpatiLens", page_icon="🧠", layout="wide")
-st.title("🧠 EmpatiLens")
+st.set_page_config(page_title="CogniTrace", page_icon="🧠", layout="wide")
+st.title("🧠 CogniTrace")
 st.caption("Bilişsel Yük ve Erişilebilirlik Analiz Ajanı — Takım 307 | YZTA Bootcamp")
 
 # ---------- Kenar çubuğu: girdiler ----------
