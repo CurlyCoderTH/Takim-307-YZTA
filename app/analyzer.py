@@ -11,7 +11,7 @@ import os
 from google import genai
 from google.genai import types
 
-from personas import PERSONAS
+from personas import GENEL_TALIMAT, PERSONAS
 
 # Ücretsiz katmanda çalışan multimodal model; .env ile değiştirilebilir.
 MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
@@ -68,7 +68,7 @@ def analiz_et(
 
     icerik: list = [
         types.Part.from_bytes(data=goruntu_bytes, mime_type=mime_type),
-        persona["prompt"] + "\n\n" + CIKTI_SEMASI,
+        persona["prompt"] + "\n" + GENEL_TALIMAT + "\n" + CIKTI_SEMASI,
     ]
     # HTML/CSS verilmişse yapısal analiz için ekle (token limiti için kırpılır).
     if html_kodu:

@@ -6,6 +6,22 @@ Dyslexia Association Style Guide'dan türetilmiştir — yani ajan keyfî yorum
 yapmaz, yayınlanmış tasarım rehberlerine göre denetler.
 """
 
+# Tüm personalara eklenen ortak denetim disiplini (backlog: 'Refine system
+# prompts'). Önem dereceleri tanımlanır ki personalar arası skorlar
+# karşılaştırılabilir olsun; bölge tarifi kuralı 4.2'deki görsel
+# işaretleme özelliğine zemin hazırlar.
+GENEL_TALIMAT = """
+Denetim disiplini:
+- Önem derecelendirmesi: 'yuksek' = kullanıcının görevi tamamlamasını
+  engelleyebilir; 'orta' = yavaşlatır/yorar; 'dusuk' = kozmetik pürüz.
+- Her sorun için 'bolge' alanında konumu net tarif et (örn. 'sayfanın üst
+  bandındaki turuncu kampanya şeridi') — 'sayfada genel olarak' gibi
+  belirsiz tarifler kullanma.
+- Yalnızca görüntüde GÖRDÜĞÜN kanıta dayan; ekranda olmayan şeyler
+  (hover davranışı, animasyon hızı) hakkında varsayım yapma.
+- En fazla 5 sorunlu alan bildir; en önemlilerini seç.
+"""
+
 PERSONAS: dict[str, dict] = {
     "disleksi": {
         "ad": "Disleksi",
