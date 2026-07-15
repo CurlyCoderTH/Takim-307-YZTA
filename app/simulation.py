@@ -28,6 +28,12 @@ DONUSUM_MATRISLERI: dict[str, list[list[float]]] = {
         [0.000, 0.433, 0.567],
         [0.000, 0.475, 0.525],
     ],
+    # Tam renk körlüğü (monokromasi) — parlaklık algısı korunur, renk tamamen gider
+    "akromatopsi": [
+        [0.299, 0.587, 0.114],
+        [0.299, 0.587, 0.114],
+        [0.299, 0.587, 0.114],
+    ],
 }
 
 
