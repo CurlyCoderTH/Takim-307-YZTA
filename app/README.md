@@ -1,52 +1,65 @@
-# CogniTrace Prototip — Kurulum ve Çalıştırma
+# CogniTrace Uygulaması — Kurulum ve Çalıştırma
 
-Sprint 1 dikey dilimi: ekran görüntüsü + persona seçimi → bilişsel yük analizi.
+Bilişsel yük ve erişilebilirlik analiz ajanı (Sprint 2 sürümü).
 
 ## Kurulum (her takım üyesi kendi bilgisayarında)
 
 ```bash
-# 1. Repoyu klonla ve app klasörüne gir
+# 1. Repoyu klonla
 git clone https://github.com/CurlyCoderTH/Takim-307-YZTA.git
-cd Takim-307-YZTA/app
+cd Takim-307-YZTA
 
-# 2. Sanal ortam oluştur ve etkinleştir
+# 2. Sanal ortam (repo kökünde)
 python -m venv .venv
 # Windows:
 .venv\Scripts\activate
 # Mac/Linux:
 source .venv/bin/activate
 
-# 3. Bağımlılıkları kur
-pip install -r requirements.txt
+# 3. Bağımlılıklar
+pip install -r app/requirements.txt
 
-# 4. API anahtarını ayarla
-# .env.example dosyasını .env olarak kopyala ve anahtarını yapıştır
-# Anahtar ücretsiz: https://aistudio.google.com → "Get API key"
+# 4. URL yakalama için tarayıcı (bir kez)
+playwright install chromium
+
+# 5. API anahtarı: app/.env.example → app/.env kopyala, anahtarını yapıştır
+#    Ücretsiz: https://aistudio.google.com → "Get API key"
 ```
 
 ## Çalıştırma
 
 ```bash
+cd app
 streamlit run app.py
 ```
 
-Tarayıcıda `http://localhost:8501` açılır:
-1. Soldan bir web sitesi ekran görüntüsü yükle (PNG/JPG)
-2. Persona(lar) seç (disleksi, renk körlüğü, DEHB, düşük görme)
-3. İstersen renk körlüğü simülasyonunu aç
-4. **Analiz Et** butonuna bas
+## Özellikler (Sprint 2)
 
-## Dosya Yapısı
-
-| Dosya | Görev |
+| Özellik | Modül |
 |---|---|
-| `app.py` | Streamlit arayüzü (giriş noktası) |
-| `personas.py` | Persona tanımları ve promptları (W3C COGA / BDA kurallarına dayalı) |
-| `analyzer.py` | Gemini multimodal API çağrısı, JSON çıktı |
-| `simulation.py` | Renk körlüğü matris simülasyonu (deterministik, LLM'siz) |
+| 3 girdi kaynağı: görüntü yükle / **URL'den otomatik yakala** / örnek galeri | `app.py`, `web_capture.py` |
+| 4 persona ajanı (disleksi, renk körlüğü, DEHB, düşük görme) — COGA/BDA kurallı | `personas.py`, `analyzer.py` |
+| **Koordinatör ajan**: bulguları sentezler, gerekçeli genel skor + eylem planı | `coordinator.py` |
+| Persona skor karşılaştırması | `app.py` |
+| **axe-core WCAG taraması** (kural tabanlı çapraz doğrulama) | `web_capture.py` |
+| **Sorunlu bölgelerin görüntü üzerinde işaretlenmesi** | `annotate.py` |
+| Renk körlüğü simülasyonu (deuteranopia, protanopia, tritanopia, akromatopsi) | `simulation.py` |
+| Disleksi metin simülasyonu (empati aracı) | `dyslexia_sim.py` |
+| Örnek galerisi — analizleri kaydet, **API'siz göster** (demo sigortası) | `gallery.py` |
+
+## Test ve Kod Kalitesi
+
+```bash
+cd app
+python -m pytest tests/ -v    # 19 birim + E2E testi
+ruff check .                  # lint
+ruff format .                 # otomatik biçimlendirme
+```
 
 ## Sık Karşılaşılan Sorunlar
 
-- **"GEMINI_API_KEY bulunamadı"** → `.env` dosyasını `app/` klasörünün içinde oluşturduğunuzdan emin olun.
-- **429 / kota hatası** → Ücretsiz katman günlük istek limitine takıldınız; başka bir üyenin anahtarıyla devam edin veya ertesi günü bekleyin.
-- **JSON parse hatası** → Nadiren model şema dışına çıkabilir; "Analiz Et"e tekrar basın.
+- **"GEMINI_API_KEY bulunamadı"** → `.env` dosyası `app/` içinde olmalı (uzantısız, `.env.txt` değil).
+- **"No module named pytest/playwright"** → `pip install -r app/requirements.txt` komutunu sanal ortam aktifken çalıştırın.
+- **URL yakalama "Executable doesn't exist"** → `playwright install chromium` çalıştırılmamış.
+- **429 / kota** → Ücretsiz katman limiti; başka üyenin anahtarıyla devam edin veya galeri modunu kullanın.
+- **Koordinatör "yedek mod" uyarısı** → LLM'e ulaşılamadı; persona raporları yine de tam, genel skor kural tabanlı birleştirildi.

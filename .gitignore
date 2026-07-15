@@ -3,3 +3,8 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+
+
+vendor/
+.pytest_cache/
+.ruff_cache/
