@@ -1,0 +1,7 @@
+# Lint ve format ayarları (backlog: 'Implement linting and code formatting')
+# Kullanım:  ruff check .    (hatalar)    ruff format .   (biçimlendirme)
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "I", "UP", "B"]
