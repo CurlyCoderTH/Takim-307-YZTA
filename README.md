@@ -104,10 +104,10 @@ Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulg
 
 - **Sprint Retrospective:**
   - axe-core ve LLM çapraz doğrulaması güven artırıcı bulunmuş, hibrit mimariye devam edilmesi kararlaştırılmıştır.
-  -PDF raporunun erken bitmesi motivasyonu artırmış, benzer proaktif yaklaşımların sürdürülmesi hedeflenmiştir.
-  -Birim testlerinin sona yığılması iş yükünü artırdığından, Sprint 3'te testlerin eş zamanlı yazılmasına karar verilmiştir.
-  -Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon     yapılması planlanmıştır.
-  -Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılması kararlaştırılmıştır.
+  - PDF raporunun erken bitmesi motivasyonu artırmış, benzer proaktif yaklaşımların sürdürülmesi hedeflenmiştir.
+  - Birim testlerinin sona yığılması iş yükünü artırdığından, Sprint 3'te testlerin eş zamanlı yazılmasına karar verilmiştir.
+  - Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon     yapılması planlanmıştır.
+  - Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılması kararlaştırılmıştır.
 
 ---
 
