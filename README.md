@@ -95,7 +95,7 @@ Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona se
   ![Ürün 3](ProjectManagement/Sprint2Documents/productss3.png)
   ![Ürün 4](ProjectManagement/Sprint2Documents/productss4.png)
   ![Ürün 5](ProjectManagement/Sprint2Documents/productss5.png)
-  ![Ürün 6](ProjectManagement/Sprint2Documents/productss.png)
+  ![Ürün 6](ProjectManagement/Sprint2Documents/productss6.png)
 
 - **Sprint Review**:
 Alınan kararlar: [18 Temmuz toplantısından sonra doldurun — iskelet: koordinatör ajan, URL yakalama, axe-core, işaretleme, galeri, PDF, premium arayüz tamamlandı / dogfooding ve 10 site ligi Sprint 3'e aktarıldı / Sprint 3 hedefi: ilk gün deploy + video + önce/sonra + hafıza]. Katılımcılar: [isimler]
