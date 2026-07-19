@@ -79,11 +79,11 @@ Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona se
 # Sprint 2
 - **Sprint içinde tamamlanması tahmin edilen puan:** 134 Puan
 
-- **Puan tamamlama mantığı:** Sprint 1'de 90 puanlık temel tamamlandığı için çekirdek özellik geliştirme sprintine 134 puan hedeflenmiştir. Sprint içinde eklenen yeni kartlarla toplam backlog 300'ün üzerine çıkmıştır; backlog yaşayan bir liste olarak yönetilmektedir. Deploy (4.7) bilinçli olarak Sprint 3'ün ilk gününe alınmış, buna karşılık 4.3 PDF raporu plandan önce bu sprintte tamamlanmıştır.
+- **Puan tamamlama mantığı:** Sprint 1'de 90 puanlık temel tamamlandığı için çekirdek özellik geliştirme sprintine 134 puan hedeflenmiştir. Sprint içinde eklenen yeni kartlarla toplam backlog 300'ün üzerine çıkmıştır; backlog yaşayan bir liste olarak yönetilmektedir. Deploy (4.7) bilinçli olarak Sprint 3'ün ilk gününe alınmış, buna karşılık PDF raporu (4.3) plandan önce bu sprintte tamamlanmıştır.
 
-- **Backlog düzeni ve Story seçimleri**: Çekirdek story'ler (URL yakalama, axe-core, koordinatör ajan orkestrasyonu, görsel işaretleme) ile sprint içinde ihtiyaçtan doğan küçük kartlar birlikte yönetilmiştir. Kırmızı item'lar task'ları, mavi item'lar story'leri temsil etmektedir; tüm kartlarda puan ve sorumlu ataması vardır.
+- **Backlog düzeni ve Story seçimleri**: Çekirdek story'ler (URL yakalama, axe-core, koordinatör ajan orkestrasyonu, görsel işaretleme) ile sprint içinde ihtiyaçtan doğan küçük kartlar birlikte yönetilmiştir. Kırmızı item'lar task'ları, mavi item'lar story'leri temsil etmektedir; tüm kartlarda puan ve sorumlu ataması bulunmaktadır.
 
-- **Daily Scrum**: WhatsApp üzerinden yazılı yürütülmüştür: [Sprint 2 Daily Scrum Notları](https://raw.githubusercontent.com/CurlyCoderTH/Takim-307-YZTA/main/ProjectManagement/Sprint2Documents/DailyScrumMeetingNotesSprint2.docx)
+- **Daily Scrum**: Daily Scrum toplantıları WhatsApp üzerinden yazılı yürütülmüştür: [Sprint 2 Daily Scrum Notları](https://raw.githubusercontent.com/CurlyCoderTH/Takim-307-YZTA/main/ProjectManagement/Sprint2Documents/DailyScrumMeetingNotesSprint2.docx)
 
 - **Sprint board update**: Sprint board screenshotları:
   ![Backlog 1](ProjectManagement/Sprint2Documents/backlog1.png)
@@ -96,12 +96,17 @@ Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona se
   ![Ürün 4](ProjectManagement/Sprint2Documents/productss4.png)
   ![Ürün 5](ProjectManagement/Sprint2Documents/productss5.png)
   ![Ürün 6](ProjectManagement/Sprint2Documents/productss6.png)
+  ![Ürün 7](ProjectManagement/Sprint2Documents/productss7.png)
 
 - **Sprint Review**:
-Alınan kararlar: [18 Temmuz toplantısından sonra doldurun — iskelet: koordinatör ajan, URL yakalama, axe-core, işaretleme, galeri, PDF, premium arayüz tamamlandı / dogfooding ve 10 site ligi Sprint 3'e aktarıldı / Sprint 3 hedefi: ilk gün deploy + video + önce/sonra + hafıza]. Katılımcılar: [isimler]
+Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulgularını sentezleyerek genel skor ve eylem planı üretmesi sağlanmıştır. URL modu devreye alınarak otomatik ekran görüntüsü ve HTML alımı aktifleştirilmiş, manuel yükleme ihtiyacı bitmiştir. axe-core WCAG taraması entegre edilerek LLM bulguları kural motoruyla doğrulanmaya başlanmıştır. Hatalı bölgeleri kırmızı kutularla işaretleme, disleksi metin simülasyonu ve renk körlüğü filtreleri tamamlanmıştır. Örnek galerisi, dashboard, logo tasarımı ve "Değerlendirme İstasyonu" arayüzü bitirilmiştir. 19 birim testi eklenmiş ve plandan önce PDF raporu oluşturma (4.3) tamamlanmıştır. Gelecek vizyonu için ses desteği, geri bildirim formu ve Chrome eklentisi fikirleri backlog'a eklenmiştir. Canlıya alma (4.7), tanıtım videosu, önce/sonra analizi ve ortak hafıza Sprint 3'e aktarılmıştır. Sprint Review katılımcıları: Gökhan Dumlupınar, Tuana Hergüner, M.Buğrahan Bayrakçı, Mustafa Yazbahar, Şükran Akşimşek
 
 - **Sprint Retrospective:**
-  - [18 Temmuz toplantısından sonra doldurun]
+  - axe-core ve LLM çapraz doğrulaması güven artırıcı bulunmuş, hibrit mimariye devam edilmesi kararlaştırılmıştır.
+  - PDF raporunun erken bitmesi motivasyonu artırmış, benzer proaktif yaklaşımların sürdürülmesi hedeflenmiştir.
+  - Birim testlerinin sona yığılması iş yükünü artırdığından, Sprint 3'te testlerin eş zamanlı yazılmasına karar verilmiştir.
+  - Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon yapılması planlanmıştır.
+  - Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılmasına karar verilmiştir.
 
 ---
 
