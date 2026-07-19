@@ -1,6 +1,8 @@
-# CogniTrace tema yapılandırması (backlog: 'Dark/Light theme toggle')
-# Streamlit açık/koyu geçişini yerleşik sunar: sağ üst ☰ → Settings → Theme.
-# Buradaki ayarlar markanın rengini iki temada da uygular.
 [theme]
+# Yalnızca başlangıç teması ve marka rengi burada; arka plan/metin renkleri
+# BILEREK tanımlanmadı — uygulama içindeki Koyu/Açık anahtarı, Streamlit'in
+# base temasını çalışma anında değiştirir (app.py) ve sabit renkler bu
+# geçişi engellerdi.
 base = "dark"
-primaryColor = "#6C63FF"
+primaryColor = "#7C3AED"
+font = "sans serif"

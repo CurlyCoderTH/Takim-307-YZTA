@@ -33,23 +33,11 @@ load_dotenv()
 
 # --- LOGO: repo içinden, herkeste çalışır (assets/ klasörüne koyun) ---
 _ASSET_DIZINI = Path(__file__).parent / "assets"
-
-
-def logo_yolu(tema: str) -> str | None:
-    """Temaya uygun logo varyantını döner; yoksa genel logoya düşer."""
-    adaylar = [
-        f"cognitrace_logo_{'koyu' if tema == 'Koyu' else 'acik'}.png",
-        "cognitrace_logo.png",
-        "cognitrace_logo.ico",
-    ]
-    for ad in adaylar:
-        p = _ASSET_DIZINI / ad
-        if p.exists():
-            return str(p)
-    return None
-
-
-LOGO_YOLU = logo_yolu("Koyu")  # sayfa ikonu için başlangıç değeri
+LOGO_YOLU = next(
+    (str(p) for ad in ("cognitrace_logo.png", "cognitrace_logo.ico")
+     if (p := _ASSET_DIZINI / ad).exists()),
+    None,
+)
 
 st.set_page_config(
     page_title="CogniTrace - Erişilebilirlik Paneli",
@@ -151,7 +139,7 @@ def pdf_olustur(genel_skor, erisilebilirlik, analiz_sonuclari, rapor, axe_ihlall
 
 # --- OTURUM DURUMU ---
 durum = st.session_state
-durum.setdefault("tema", "Koyu")
+durum.setdefault("tema", "Açık")
 durum.setdefault("sol_panel_acik", True)
 durum.setdefault("giris_yapildi", False)
 durum.setdefault("aktif_sekme", "Analiz Paneli")
@@ -160,21 +148,6 @@ durum.setdefault("rapor_state", None)
 durum.setdefault("genel_skor_state", 0)
 durum.setdefault("engelsiz_skor_state", 100)
 durum.setdefault("isaretli_state", None)
-
-# Streamlit'in YERLEŞİK temasını oturum temasıyla eşitle: CSS yalnızca bizim
-# kartları boyar; açılır menüler, dosya yükleyici ve üst şerit gibi native
-# bileşenler base temadan renk alır. Resmî çalışma anı API'si olmadığı için
-# dahili config kancası kullanılır; kırılırsa uygulama düşmez.
-_istenen_base = "dark" if durum["tema"] == "Koyu" else "light"
-try:
-    if st._config.get_option("theme.base") != _istenen_base:
-        st._config.set_option("theme.base", _istenen_base)
-        st.rerun()
-except Exception:
-    pass
-
-# Tema netleştikten sonra logoyu temaya uygun varyantla değiştir.
-LOGO_YOLU = logo_yolu(durum["tema"])
 
 # --- TEMA CSS (Şükran'ın tasarımı) ---
 _genis = "280px" if durum["sol_panel_acik"] else "80px"
@@ -198,13 +171,6 @@ st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
     * {{ font-family: 'Plus Jakarta Sans', sans-serif !important; }}
-    /* İkon fontlarını global font ezmesinden muaf tut — yoksa ikonlar
-       ("upload", "keyboard_arrow_down"...) ham metin olarak görünür. */
-    span[data-testid="stIconMaterial"],
-    [class*="material-symbols"],
-    [class*="material-icons"] {{
-        font-family: 'Material Symbols Rounded' !important;
-    }}
     .stApp {{ background-color: {_pal['arka']} !important; color: {_pal['metin']} !important; }}
     section[data-testid="stSidebar"] {{
         background-color: {_pal['panel']} !important;
@@ -526,12 +492,9 @@ if durum["aktif_sekme"] == "Analiz Paneli":
                 satir += f" → **{e['oneri']}**"
             st.markdown(satir)
 
-            if durum.get("isaretli_state") is not None:
-                st.markdown("### 📍 Sorunlu Bölgeler Görüntü Üzerinde")
-                _, orta, _ = st.columns([1, 2, 1])
-                with orta:
-                    st.image(durum["isaretli_state"], use_container_width=True)
-                    st.caption("Büyütmek için görüntünün üzerine gelip ⛶ simgesine tıklayın.")
+        if durum.get("isaretli_state") is not None:
+            st.markdown("### 📍 Sorunlu Bölgeler Görüntü Üzerinde")
+            st.image(durum["isaretli_state"], use_container_width=True)
 
         st.markdown("### 📋 Persona Bulguları")
         for anahtar, sonuc in durum["analiz_sonuclari_state"].items():

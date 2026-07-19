@@ -77,7 +77,31 @@ Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona se
 ---
 
 # Sprint 2
+- **Sprint içinde tamamlanması tahmin edilen puan:** 134 Puan
 
+- **Puan tamamlama mantığı:** Sprint 1'de 90 puanlık temel tamamlandığı için çekirdek özellik geliştirme sprintine 134 puan hedeflenmiştir. Sprint içinde eklenen yeni kartlarla toplam backlog 300'ün üzerine çıkmıştır; backlog yaşayan bir liste olarak yönetilmektedir. Deploy (4.7) bilinçli olarak Sprint 3'ün ilk gününe alınmış, buna karşılık 4.3 PDF raporu plandan önce bu sprintte tamamlanmıştır.
+
+- **Backlog düzeni ve Story seçimleri**: Çekirdek story'ler (URL yakalama, axe-core, koordinatör ajan orkestrasyonu, görsel işaretleme) ile sprint içinde ihtiyaçtan doğan küçük kartlar birlikte yönetilmiştir. Kırmızı item'lar task'ları, mavi item'lar story'leri temsil etmektedir; tüm kartlarda puan ve sorumlu ataması vardır.
+
+- **Daily Scrum**: WhatsApp üzerinden yazılı yürütülmüştür: [Sprint 2 Daily Scrum Notları](https://raw.githubusercontent.com/CurlyCoderTH/Takim-307-YZTA/main/ProjectManagement/Sprint2Documents/DailyScrumMeetingNotesSprint2.docx)
+
+- **Sprint board update**: Sprint board screenshotları:
+  ![Backlog 1](ProjectManagement/Sprint2Documents/backlog1.png)
+  ![Backlog 2](ProjectManagement/Sprint2Documents/backlog2.png)
+
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Ürün 1](ProjectManagement/Sprint2Documents/productss1.png)
+  ![Ürün 2](ProjectManagement/Sprint2Documents/productss2.png)
+  ![Ürün 3](ProjectManagement/Sprint2Documents/productss3.png)
+  ![Ürün 4](ProjectManagement/Sprint2Documents/productss4.png)
+  ![Ürün 5](ProjectManagement/Sprint2Documents/productss5.png)
+  ![Ürün 6](ProjectManagement/Sprint2Documents/productss.png)
+
+- **Sprint Review**:
+Alınan kararlar: [18 Temmuz toplantısından sonra doldurun — iskelet: koordinatör ajan, URL yakalama, axe-core, işaretleme, galeri, PDF, premium arayüz tamamlandı / dogfooding ve 10 site ligi Sprint 3'e aktarıldı / Sprint 3 hedefi: ilk gün deploy + video + önce/sonra + hafıza]. Katılımcılar: [isimler]
+
+- **Sprint Retrospective:**
+  - [18 Temmuz toplantısından sonra doldurun]
 
 ---
 
