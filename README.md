@@ -90,18 +90,24 @@ Alınan kararlar: Ürün ismi "CogniTrace" olarak kesinleştirilmiş, persona se
   ![Backlog 2](ProjectManagement/Sprint2Documents/backlog2.png)
 
 - **Ürün Durumu**: Ekran görüntüleri:
-  ![Ürün 1](ProjectManagement/Sprint2Documents/productss1.png)
-  ![Ürün 2](ProjectManagement/Sprint2Documents/productss2.png)
-  ![Ürün 3](ProjectManagement/Sprint2Documents/productss3.png)
-  ![Ürün 4](ProjectManagement/Sprint2Documents/productss4.png)
-  ![Ürün 5](ProjectManagement/Sprint2Documents/productss5.png)
-  ![Ürün 6](ProjectManagement/Sprint2Documents/productss6.png)
+  ![Ürün 1](ProjectManagement/Sprint2Documents/productss0.png)
+  ![Ürün 2](ProjectManagement/Sprint2Documents/productss01.png)
+  ![Ürün 3](ProjectManagement/Sprint2Documents/productss1.png)
+  ![Ürün 4](ProjectManagement/Sprint2Documents/productss2.png)
+  ![Ürün 5](ProjectManagement/Sprint2Documents/productss3.png)
+  ![Ürün 6](ProjectManagement/Sprint2Documents/productss4.png)
+  ![Ürün 7](ProjectManagement/Sprint2Documents/productss5.png)
+  ![Ürün 8](ProjectManagement/Sprint2Documents/productss6.png)
 
 - **Sprint Review**:
-Alınan kararlar: [18 Temmuz toplantısından sonra doldurun — iskelet: koordinatör ajan, URL yakalama, axe-core, işaretleme, galeri, PDF, premium arayüz tamamlandı / dogfooding ve 10 site ligi Sprint 3'e aktarıldı / Sprint 3 hedefi: ilk gün deploy + video + önce/sonra + hafıza]. Katılımcılar: [isimler]
+Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulgularını sentezleyerek genel skor ve eylem planı üretmesi sağlanmıştır. URL modu devreye alınarak otomatik ekran görüntüsü ve HTML alımı aktifleştirilmiş, manuel yükleme ihtiyacı bitmiştir. axe-core WCAG taraması entegre edilerek LLM bulguları kural motoruyla doğrulanmaya başlanmıştır. Hatalı bölgeleri kırmızı kutularla işaretleme, disleksi metin simülasyonu ve renk körlüğü filtreleri tamamlanmıştır. Örnek galerisi, dashboard, logo tasarımı ve "Değerlendirme İstasyonu" arayüzü bitirilmiştir. 19 birim testi eklenmiş ve plandan önce PDF raporu oluşturma (4.3) tamamlanmıştır. Gelecek vizyonu için ses desteği, geri bildirim formu ve Chrome eklentisi fikirleri eklenmiştir. Canlıya alma (4.7), tanıtım videosu, önce/sonra analizi ve ortak hafıza Sprint 3'e aktarılmıştır. Sprint Review katılımcıları: Gökhan Dumlupınar, Tuana Hergüner, M.Buğrahan Bayrakçı, Mustafa Yazbahar, Şükran Akşimşek
 
 - **Sprint Retrospective:**
-  - [18 Temmuz toplantısından sonra doldurun]
+  - axe-core ve LLM çapraz doğrulaması güven artırıcı bulunmuş, hibrit mimariye devam edilmesi kararlaştırılmıştır.
+  -PDF raporunun erken bitmesi motivasyonu artırmış, benzer proaktif yaklaşımların sürdürülmesi hedeflenmiştir.
+  -Birim testlerinin sona yığılması iş yükünü artırdığından, Sprint 3'te testlerin eş zamanlı yazılmasına karar verilmiştir.
+  -Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon     yapılması planlanmıştır.
+  -Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılması kararlaştırılmıştır.
 
 ---
 
