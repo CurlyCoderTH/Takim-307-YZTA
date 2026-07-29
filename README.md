@@ -116,4 +116,30 @@ Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulg
 
 # Sprint 3
 
+- **Sprint içinde tamamlanması tahmin edilen puan:** 100 Puan
+
+- **Puan tamamlama mantığı:** Sprint 1 (90) ve Sprint 2 (134) başarıyla tamamlandıktan sonra, kalan son 100 puanlık backlog dilimi (3.6 Tutarlılık Testi, 4.8 Ajan Hafızası & Gelişim Analitiği, 4.4 Önce/Sonra Analiz Karşılaştırması, 4.3 PDF İndirme) ve nihai teslimat süreçleri (4.5 Tanıtım Videosu ve Sunum, 4.6 Dokümantasyon) Sprint 3 planına dahil edilmiş ve eksiksiz şekilde bitirilmiştir.
+
+- **Backlog düzeni ve Story seçimleri**: Sprint 3 backlog'u Miro board üzerinde son teslim gereksinimlerine göre düzenlenmiştir. Yapılacak işler detaylı task'lere bölünmüştür. Mavi kartlar user story'leri, kırmızı kartlar ise task'ları temsil etmektedir.
+
+- **Daily Scrum**: Daily Scrum toplantıları WhatsApp üzerinden yazılı olarak sürdürülmüş ve günlük ilerleme raporlanmıştır: [Sprint 3 Daily Scrum Notları](https://raw.githubusercontent.com/CurlyCoderTH/Takim-307-YZTA/main/ProjectManagement/Sprint3Documents/DailyScrumMeetingNotesSprint3.docx)
+
+- **Sprint board update**: Sprint board screenshotları:
+  ![Backlog 1](ProjectManagement/Sprint3Documents/backlog1.png)
+  ![Backlog 2](ProjectManagement/Sprint3Documents/backlog2.png)
+
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Ürün 1](ProjectManagement/Sprint3Documents/productss1.png)
+  ![Ürün 2](ProjectManagement/Sprint3Documents/productss2.png)
+  ![Ürün 3](ProjectManagement/Sprint3Documents/productss3.png)
+
+- **Sprint Review**:
+Alınan kararlar: Ürünün kararlı final sürümü başarıyla doğrulanmıştır. PDF rapor indirme özelliği test edilerek Türkçe karakter desteği ve görsel çıktılarla sorunsuz hale getirilmiştir. Ajan Hafızası (Agent Memory) entegrasyonu tamamlanmış; koordinatör ajanın geçmiş analiz raporlarını hafızasından karşılaştırması ve "Gelişim Yorumu" sunması sağlanmıştır. "Gelişim Analitiği" sayfasıyla geçmiş analizlerin bilişsel yük trend grafikleri Plotly ile görselleştirilmiştir. Çoklu persona ajanlarının analiz hızı, ThreadPoolExecutor ile paralel işleme geçilerek %55'in üzerinde artırılmıştır (analiz süresi 14 saniyeden 6 saniyenin altına düşürülmüştür). Playwright kaynak sızıntılarını önlemek için try-finally blokları ile tarayıcı kaynakları güvene alınmıştır. Pydantic şema desteğiyle LLM çıktılarının doğruluğu artırılmış, JSON ayrıştırma hataları giderilmiştir. Tanıtım videosu ve sunum dosyaları tamamlanmıştır. Sprint Review katılımcıları: Gökhan Dumlupınar, Tuana Hergüner, M.Buğrahan Bayrakçı, Mustafa Yazbahar, Şükran Akşimşek.
+
+- **Sprint Retrospective:**
+  - Paralel işleme geçişin (ThreadPoolExecutor) performansı inanılmaz derecede artırdığı ve kullanıcı deneyimini doğrudan iyileştirdiği görülmüş, benzer yoğun operasyonlar için standart pratik haline getirilmiştir.
+  - Pydantic yapısal çıktı kullanımı (response_schema) sayesinde LLM çıktılarındaki JSON bozulmaları tamamen çözülmüştür.
+  - Testlerin geliştirme ile eş zamanlı yazılması sayesinde entegrasyon ve regression riskleri erkenden saptanmış ve giderilmiştir.
+  - Proje, erişilebilirlik ve bilişsel yük tespiti konusunda yenilikçi ve hibrit (axe-core + Çoklu Ajan) mimarisiyle tam zamanında ve eksiksiz bir şekilde teslim edilmiştir.
+
 ---

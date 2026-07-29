@@ -61,25 +61,26 @@ def sayfa_yakala(
         # (playwright install chromium). CI/sandbox ortamlarında hazır bir
         # binary varsa CHROMIUM_PATH ile gösterilebilir.
         tarayici = p.chromium.launch(executable_path=os.getenv("CHROMIUM_PATH") or None)
-        sayfa = tarayici.new_page(viewport={"width": 1366, "height": 768})
-        sayfa.goto(url, wait_until="domcontentloaded", timeout=zaman_asimi)
-        # Geç yüklenen görseller/fontlar için kısa tampon bekleme.
-        sayfa.wait_for_timeout(2500)
+        try:
+            sayfa = tarayici.new_page(viewport={"width": 1366, "height": 768})
+            sayfa.goto(url, wait_until="domcontentloaded", timeout=zaman_asimi)
+            # Geç yüklenen görseller/fontlar için kısa tampon bekleme.
+            sayfa.wait_for_timeout(2500)
 
-        png = sayfa.screenshot(full_page=tam_sayfa)
-        html = sayfa.content()
+            png = sayfa.screenshot(full_page=tam_sayfa)
+            html = sayfa.content()
 
-        ihlaller = None
-        if axe_calistir:
-            try:
-                sayfa.add_script_tag(content=_axe_kaynagi())
-                ham = sayfa.evaluate(
-                    "async () => await axe.run(document, {resultTypes: ['violations']})"
-                )
-                ihlaller = _ihlalleri_ozetle(ham)
-            except Exception:
-                ihlaller = None  # tarama düşerse görüntü+HTML yine de kullanılır
-
-        tarayici.close()
+            ihlaller = None
+            if axe_calistir:
+                try:
+                    sayfa.add_script_tag(content=_axe_kaynagi())
+                    ham = sayfa.evaluate(
+                        "async () => await axe.run(document, {resultTypes: ['violations']})"
+                    )
+                    ihlaller = _ihlalleri_ozetle(ham)
+                except Exception:
+                    ihlaller = None  # tarama düşerse görüntü+HTML yine de kullanılır
+        finally:
+            tarayici.close()
 
     return {"png": png, "html": html, "axe": ihlaller}

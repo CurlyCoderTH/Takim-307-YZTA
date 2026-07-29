@@ -232,8 +232,8 @@ with st.sidebar:
             st.rerun()
 
     st.markdown("---")
-    for nav in ({"ad": "Analiz Paneli", "ikon": "🔎"}, {"ad": "Ayarlar", "ikon": "⚙️"},
-                {"ad": "Kullanıcı Profili", "ikon": "👤"}):
+    for nav in ({"ad": "Analiz Paneli", "ikon": "🔎"}, {"ad": "Gelişim Analitiği", "ikon": "📈"},
+                {"ad": "Ayarlar", "ikon": "⚙️"}, {"ad": "Kullanıcı Profili", "ikon": "👤"}):
         etiket = f"{nav['ikon']} {nav['ad']}" if durum["sol_panel_acik"] else nav["ikon"]
         if st.button(etiket, use_container_width=True, key=f"nav_{nav['ad']}"):
             durum["aktif_sekme"] = nav["ad"]
@@ -243,10 +243,10 @@ with st.sidebar:
         st.markdown("---")
         st.markdown("### 👥 Aktif Personalar")
         for p in PERSONAS.values():
-            ozet = p["prompt"].splitlines()[0][:70]
+            ozet = p.get("aciklama") or (p["prompt"].splitlines()[0][:70] + "...")
             st.markdown(
                 f'<div class="persona-sidebar-card"><strong>{p["emoji"]} {p["ad"]}</strong><br/>'
-                f'<small>{ozet}...</small></div>',
+                f'<small>{ozet}</small></div>',
                 unsafe_allow_html=True,
             )
 
@@ -347,6 +347,15 @@ if durum["aktif_sekme"] == "Analiz Paneli":
             format_func=lambda k: f"{PERSONAS[k]['emoji']} {PERSONAS[k]['ad']}")
         simulasyon_tipi = st.selectbox("Renk Körlüğü Simülasyonu",
                                        ["(kapalı)"] + list(DONUSUM_MATRISLERI))
+        # Geçmiş Analiz Karşılaştırma (Ajan Hafızası)
+        ornekler_liste = gallery.listele()
+        if ornekler_liste:
+            secilen_gecmis = st.selectbox(
+                "🧠 Hafıza: Önceki Sürümle Karşılaştır (Gelişim Raporu)",
+                ["(karşılaştırma yok)"] + ornekler_liste
+            )
+        else:
+            secilen_gecmis = "(karşılaştırma yok)"
         with st.expander("📖 Disleksi metin simülasyonu"):
             metin = st.text_area("Bir paragraf yapıştırın", height=80, key="dys")
             if metin:
@@ -390,19 +399,33 @@ if durum["aktif_sekme"] == "Analiz Paneli":
                     f"font-size:0.85rem;'>{adim}</div>", unsafe_allow_html=True)
             st.markdown("<br/>", unsafe_allow_html=True)
 
+            from concurrent.futures import ThreadPoolExecutor
+
             sonuclar: dict[str, dict] = {}
-            for anahtar in secilen_personalar:
-                p = PERSONAS[anahtar]
-                with st.spinner(f"{p['ad']} personası arayüzü denetliyor..."):
-                    try:
-                        sonuclar[anahtar] = analiz_et(durum["goruntu"], durum["mime"],
-                                                      anahtar, durum.get("html"))
-                    except Exception as hata:
-                        st.error(f"Analiz başarısız ({p['ad']}): {hata}")
+            with st.spinner("Persona ajanları arayüzü eşzamanlı denetliyor..."):
+                with ThreadPoolExecutor() as executor:
+                    futures = {
+                        executor.submit(analiz_et, durum["goruntu"], durum["mime"],
+                                        anahtar, durum.get("html")): anahtar
+                        for anahtar in secilen_personalar
+                    }
+                    for future in futures:
+                        anahtar = futures[future]
+                        try:
+                            sonuclar[anahtar] = future.result()
+                        except Exception as hata:
+                            st.error(f"Analiz başarısız ({PERSONAS[anahtar]['ad']}): {hata}")
 
             if sonuclar:
                 with st.spinner("Koordinatör ajan bulguları sentezliyor..."):
-                    rapor = koordine_et(sonuclar)
+                    gecmis_rapor = None
+                    if secilen_gecmis != "(karşılaştırma yok)":
+                        try:
+                            _, _, g_rapor = gallery.yukle(secilen_gecmis)
+                            gecmis_rapor = g_rapor
+                        except Exception:
+                            pass
+                    rapor = koordine_et(sonuclar, gecmis_rapor=gecmis_rapor)
                 tarifler = [f"{a.get('bolge', '')}: {a.get('sorun', '')}"
                             for s in sonuclar.values()
                             for a in s.get("sorunlu_alanlar", [])
@@ -483,6 +506,8 @@ if durum["aktif_sekme"] == "Analiz Paneli":
         if rapor.get("_yedek_mod"):
             st.info("Koordinatör LLM'e ulaşılamadı; deterministik birleştirme kullanıldı.")
         st.write(rapor.get("yonetici_ozeti", ""))
+        if rapor.get("gelisim_yorumu"):
+            st.success(f"📈 **Gelişim Analizi (Ajan Hafızası):** {rapor['gelisim_yorumu']}")
         if rapor.get("skor_gerekcesi"):
             st.caption(f"Skor gerekçesi: {rapor['skor_gerekcesi']}")
         for i, e in enumerate(rapor.get("oncelikli_eylemler", []), 1):
@@ -538,11 +563,135 @@ if durum["aktif_sekme"] == "Analiz Paneli":
     else:
         st.info("Grafikler, koordinatör raporu ve PDF çıktısı analiz sonrası burada görünecek.")
 
+elif durum["aktif_sekme"] == "Gelişim Analitiği":
+    st.markdown("### 📈 Gelişim Analitiği ve Analiz Geçmişi")
+    st.write("Sitede yapılan erişilebilirlik ve bilişsel yük iyileştirmelerini zaman içinde takip edin.")
+
+    ornekler = gallery.listele()
+    if not ornekler:
+        st.info("Henüz kaydedilmiş analiz bulunmuyor. Bir analizi gerçekleştirdikten sonra '💾 Kaydet' butonu ile galeriye ekleyebilirsiniz.")
+    else:
+        # Plot score trend
+        tarihler = []
+        genel_skorlar = []
+        persona_skorlari = {p["ad"]: [] for p in PERSONAS.values()}
+        
+        for ad in ornekler:
+            try:
+                _, g_sonuclar, g_rapor = gallery.yukle(ad)
+                tarihler.append(ad)
+                if g_rapor:
+                    genel_skorlar.append(g_rapor.get("genel_skor", 0))
+                else:
+                    genel_skorlar.append(0)
+                
+                for k, p in PERSONAS.items():
+                    if k in g_sonuclar:
+                        persona_skorlari[p["ad"]].append(g_sonuclar[k].get("bilissel_yuk_skoru", 0))
+                    else:
+                        persona_skorlari[p["ad"]].append(0)
+            except Exception:
+                continue
+        
+        if tarihler:
+            fig = go.Figure()
+            # Genel Bilişsel Yük Skoru
+            fig.add_trace(go.Scatter(
+                x=tarihler, y=genel_skorlar,
+                mode="lines+markers",
+                name="Genel Bilişsel Yük Skoru",
+                line=dict(color="#EF4444", width=3)
+            ))
+            # Persona bazlı skorlar
+            for p_ad, skorlar in persona_skorlari.items():
+                fig.add_trace(go.Scatter(
+                    x=tarihler, y=skorlar,
+                    mode="lines+markers",
+                    name=f"{p_ad} Bilişsel Yükü",
+                    line=dict(dash="dash")
+                ))
+            
+            fig.update_layout(
+                title="Bilişsel Yük Trend Analizi (Düşük Skor = Daha İyi Erişilebilirlik)",
+                xaxis_title="Analiz Versiyonları / Sayfalar",
+                yaxis_title="Bilişsel Yük Skoru",
+                yaxis=dict(range=[0, 100]),
+                paper_bgcolor="rgba(0,0,0,0)",
+                font={"family": "Plus Jakarta Sans"}
+            )
+            st.plotly_chart(fig, use_container_width=True)
+            
+            # Show a summary list of saved items
+            st.markdown("#### Kayıtlı Analiz Detayları")
+            for ad in ornekler:
+                with st.expander(f"📁 {ad}"):
+                    try:
+                        _, g_sonuclar, g_rapor = gallery.yukle(ad)
+                        if g_rapor:
+                            st.write(f"**Genel Bilişsel Yük Skoru:** {g_rapor.get('genel_skor', 0)}/100")
+                            st.write(f"**Yönetici Özeti:** {g_rapor.get('yonetici_ozeti', '')}")
+                        st.write("**Persona Bulguları:**")
+                        for k, v in g_sonuclar.items():
+                            st.write(f"- {PERSONAS[k]['ad']}: {v.get('bilissel_yuk_skoru', 0)}/100")
+                    except Exception as e:
+                        st.error(f"Hata: {e}")
+
 elif durum["aktif_sekme"] == "Ayarlar":
     st.markdown("### ⚙️ Sistem Ayarları")
-    st.write("Model: `.env` dosyasındaki `GEMINI_MODEL` ile değiştirilebilir "
-             "(varsayılan: gemini-2.5-flash).")
-    st.write("API anahtarı: `app/.env` içinde `GEMINI_API_KEY`.")
+    
+    # 1. AI Model Ayarları
+    st.markdown("#### 🤖 Yapay Zeka Model Yapılandırması")
+    from analyzer import get_model
+    current_model = get_model()
+    
+    modeller = ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-flash", "gemini-1.5-pro"]
+    if current_model not in modeller:
+        modeller.append(current_model)
+        
+    secilen_model = st.selectbox(
+        "Kullanılacak Gemini Modeli",
+        options=modeller,
+        index=modeller.index(current_model),
+        help="Ajanların analizi gerçekleştirmek için kullanacağı temel model. gemini-2.5-flash hızlı ve kararlıdır."
+    )
+    if secilen_model != durum.get("secilen_model"):
+        durum["secilen_model"] = secilen_model
+        st.success(f"Model güncellendi: {secilen_model}")
+        st.rerun()
+
+    st.markdown("---")
+    
+    # 2. Galeri & Hafıza Veri Yönetimi
+    st.markdown("#### 🧹 Veri ve Geçmiş Yönetimi")
+    st.info("Kayıtlı analiz geçmişi ve galeri verilerini buradan sıfırlayabilirsiniz.")
+    
+    if "silme_onayi" not in durum:
+        durum["silme_onayi"] = False
+
+    if not durum["silme_onayi"]:
+        if st.button("🚨 Tüm Analiz Geçmişini Sil", type="secondary", use_container_width=True):
+            durum["silme_onayi"] = True
+            st.rerun()
+    else:
+        st.warning("⚠️ Tüm analiz geçmişini ve kayıtlı verileri silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")
+        col_onay1, col_onay2 = st.columns(2)
+        with col_onay1:
+            if st.button("Evet, Tamamen Sil", type="primary", use_container_width=True):
+                import shutil
+                from gallery import GALERI_YOL
+                if GALERI_YOL.exists():
+                    try:
+                        shutil.rmtree(GALERI_YOL)
+                        GALERI_YOL.mkdir(parents=True, exist_ok=True)
+                        st.success("Tüm analiz geçmişi ve galeri temizlendi!")
+                    except Exception as e:
+                        st.error(f"Hata oluştu: {e}")
+                durum["silme_onayi"] = False
+                st.rerun()
+        with col_onay2:
+            if st.button("İptal Et", type="secondary", use_container_width=True):
+                durum["silme_onayi"] = False
+                st.rerun()
 
 elif durum["aktif_sekme"] == "Kullanıcı Profili":
     st.markdown("### 👤 Kullanıcı Girişi (demo)")
@@ -551,3 +700,16 @@ elif durum["aktif_sekme"] == "Kullanıcı Profili":
         durum["giris_yapildi"] = True
         st.success(f"Başarıyla giriş yapıldı: {kullanici}")
         st.rerun()
+
+# --- FOOTER ---
+st.markdown("<br/><br/>", unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <div style="text-align: center; padding: 20px 0; margin-top: 40px; 
+                border-top: 1px solid {_pal['kenar']}; opacity: 0.7; font-size: 0.85rem;">
+        <p style="margin: 0; font-weight: 500;">🧠 <strong>CogniTrace</strong> — Erişilebilirlik & Bilişsel Yük Analiz İstasyonu</p>
+        <p style="margin: 5px 0 0 0; font-size: 0.75rem;">© 2026 Takım 307. Tüm Hakları Saklıdır.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)

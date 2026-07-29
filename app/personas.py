@@ -26,6 +26,7 @@ PERSONAS: dict[str, dict] = {
     "disleksi": {
         "ad": "Disleksi",
         "emoji": "📖",
+        "aciklama": "Okuma güçlüğü çeken kullanıcılar için yazı tiplerini, hizalamaları ve metin yoğunluğunu denetler.",
         "prompt": (
             "Sen disleksili kullanıcıların web deneyimi konusunda uzman bir "
             "erişilebilirlik denetçisisin. Verilen arayüz görüntüsünü disleksili "
@@ -44,6 +45,7 @@ PERSONAS: dict[str, dict] = {
     "renk_korlugu": {
         "ad": "Renk Körlüğü",
         "emoji": "🎨",
+        "aciklama": "Farklı renk körlüğü türleri için renk kombinasyonlarını, kontrast oranlarını ve bilgi iletim biçimlerini inceler.",
         "prompt": (
             "Sen renk körü (özellikle deuteranopia ve protanopia) kullanıcıların "
             "web deneyimi konusunda uzman bir erişilebilirlik denetçisisin. "
@@ -62,6 +64,7 @@ PERSONAS: dict[str, dict] = {
     "dehb": {
         "ad": "DEHB (Dikkat Eksikliği)",
         "emoji": "⚡",
+        "aciklama": "Dikkat dağınıklığı olan kullanıcılar için görsel gürültüyü, karar noktalarını ve dikkat dağıtıcı öğeleri analiz eder.",
         "prompt": (
             "Sen DEHB'li (dikkat eksikliği ve hiperaktivite) kullanıcıların web "
             "deneyimi konusunda uzman bir erişilebilirlik denetçisisin. Verilen "
@@ -80,6 +83,7 @@ PERSONAS: dict[str, dict] = {
     "dusuk_gorme": {
         "ad": "Düşük Görme / Yaşlı Kullanıcı",
         "emoji": "👓",
+        "aciklama": "Yaşlı ve görme kaybı olan kullanıcılar için metin boyutlarını, kontrastı ve tıklama hedeflerini denetler.",
         "prompt": (
             "Sen düşük görme yetisine sahip ve yaşlı kullanıcıların web deneyimi "
             "konusunda uzman bir erişilebilirlik denetçisisin. Verilen arayüz "

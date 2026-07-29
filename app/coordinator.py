@@ -12,8 +12,9 @@ asla boş kalmaz (demo sigortası).
 import json
 
 from google.genai import types
+from pydantic import BaseModel, Field
 
-from analyzer import MODEL, _istemci
+from analyzer import MODEL, _istemci, get_model
 from personas import PERSONAS
 
 SENTEZ_TALIMATI = """
@@ -26,24 +27,24 @@ JSON raporları var. Görevin bunları SENTEZLEMEK — özetlemek değil:
   etkilediğine göre gerekçeli belirle.
 - Çelişki varsa (bir persona için iyi, diğeri için kötü olan tasarım) bunu
   açıkça belirt.
-
-YALNIZCA şu JSON şemasında yanıt ver (Türkçe):
-{
-  "genel_skor": <1-100 tamsayı; 1=çok rahat, 100=aşırı yorucu>,
-  "skor_gerekcesi": "<skoru neden böyle belirlediğinin 1-2 cümlelik açıklaması>",
-  "yonetici_ozeti": "<arayüzün genel durumunun 2-3 cümlelik özeti>",
-  "ortak_sorunlar": ["<birden fazla personayı etkileyen sorun>", "..."],
-  "oncelikli_eylemler": [
-    {
-      "oncelik": "<yuksek|orta|dusuk>",
-      "sorun": "<bölge + sorunun kısa tarifi>",
-      "etkilenen_personalar": ["<persona adı>", "..."],
-      "oneri": "<somut iyileştirme adımı>"
-    }
-  ],
-  "celiskiler": ["<personalar arası çelişen bulgu varsa, yoksa boş liste>"]
-}
 """
+
+
+class OncelikliEylem(BaseModel):
+    oncelik: str = Field(description="Öncelik derecesi. Olası değerler: yuksek, orta, dusuk")
+    sorun: str = Field(description="Bölge + sorunun kısa tarifi")
+    etkilenen_personalar: list[str] = Field(description="Etkilenen persona isimleri listesi")
+    oneri: str = Field(description="Somut iyileştirme adımı")
+
+
+class CoordinatorSentezCiktisi(BaseModel):
+    genel_skor: int = Field(ge=1, le=100, description="1-100 arası tamsayı; 1=çok rahat, 100=aşırı yorucu")
+    skor_gerekcesi: str = Field(description="Skoru neden böyle belirlediğinin 1-2 cümlelik açıklaması")
+    yonetici_ozeti: str = Field(description="Arayüzün genel durumunun 2-3 cümlelik özeti")
+    ortak_sorunlar: list[str] = Field(description="Birden fazla personayı etkileyen sorunlar listesi")
+    oncelikli_eylemler: list[OncelikliEylem] = Field(description="Öncelik sırasına göre eylem planı listesi")
+    celiskiler: list[str] = Field(description="Personalar arası çelişen bulgular varsa liste, yoksa boş liste")
+    gelisim_yorumu: str | None = Field(default=None, description="Geçmiş analize göre ilerleme/gelişme yorumu. Geçmiş analiz verilmediyse null olmalı.")
 
 
 def _deterministik_birlestir(sonuclar: dict[str, dict]) -> dict:
@@ -67,17 +68,18 @@ def _deterministik_birlestir(sonuclar: dict[str, dict]) -> dict:
         "ortak_sorunlar": [],
         "oncelikli_eylemler": eylemler[:5],
         "celiskiler": [],
+        "gelisim_yorumu": None,
         "_yedek_mod": True,
     }
 
 
-def koordine_et(sonuclar: dict[str, dict]) -> dict:
+def koordine_et(sonuclar: dict[str, dict], gecmis_rapor: dict | None = None) -> dict:
     """Persona sonuçlarını koordinatör ajanla sentezler; hata halinde yedek moda düşer."""
     if not sonuclar:
         raise ValueError("Sentezlenecek persona sonucu yok.")
 
-    # Tek persona seçiliyse sentezlenecek çokluk yok; skoru doğrudan aktar.
-    if len(sonuclar) == 1:
+    # Tek persona seçiliyse ve geçmiş rapor yoksa, sentezlenecek çokluk yok; skoru doğrudan aktar.
+    if len(sonuclar) == 1 and not gecmis_rapor:
         tek = next(iter(sonuclar.values()))
         return {
             "genel_skor": int(tek.get("bilissel_yuk_skoru", 0)),
@@ -94,6 +96,7 @@ def koordine_et(sonuclar: dict[str, dict]) -> dict:
                 for a in tek.get("sorunlu_alanlar", [])
             ],
             "celiskiler": [],
+            "gelisim_yorumu": None,
             "_yedek_mod": False,
         }
 
@@ -101,12 +104,20 @@ def koordine_et(sonuclar: dict[str, dict]) -> dict:
     rapor_paketi = json.dumps(
         {PERSONAS[k]["ad"]: v for k, v in sonuclar.items()}, ensure_ascii=False
     )
+    
+    prompt = SENTEZ_TALIMATI + "\n\nPersona raporları:\n" + rapor_paketi
+    if gecmis_rapor:
+        prompt += "\n\nÖnemli: Lütfen bu analizi aşağıdaki geçmiş analiz raporu ile karşılaştırarak 'gelisim_yorumu' alanını doldur:\n" + json.dumps(gecmis_rapor, ensure_ascii=False)
+
     try:
         istemci = _istemci()
         yanit = istemci.models.generate_content(
-            model=MODEL,
-            contents=[SENTEZ_TALIMATI + "\n\nPersona raporları:\n" + rapor_paketi],
-            config=types.GenerateContentConfig(response_mime_type="application/json"),
+            model=get_model(),
+            contents=[prompt],
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=CoordinatorSentezCiktisi,
+            ),
         )
         rapor = json.loads(yanit.text)
         rapor["_yedek_mod"] = False

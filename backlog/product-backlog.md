@@ -1,4 +1,4 @@
-# Product Backlog — EmpatiLens (Toplam: 300 Puan)
+# Product Backlog — CogniTrace (Toplam: 300 Puan)
 
 > Bu dosyadaki kartları Miro board'a taşıyın. Önerilen Miro düzeni aşağıda.
 

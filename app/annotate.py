@@ -1,25 +1,25 @@
-"""Sorunlu bölgeleri görüntü üzerinde işaretleme (backlog 4.2).
-
-Persona ajanlarının bulduğu sorunlu bölge tariflerini Gemini'ye geri verip
-sınırlayıcı kutu (bounding box) koordinatlarını ister, PIL ile görüntüye
-numaralı kırmızı çerçeveler çizer. Kutu bulunamazsa uygulama durmaz.
-"""
-
 import json
 
 from google.genai import types
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
+from pydantic import BaseModel, Field
 
-from analyzer import MODEL, _istemci
+from analyzer import MODEL, _istemci, get_model
 
 KUTU_TALIMATI = """
 Bu arayüz görüntüsünde aşağıda tarif edilen sorunlu bölgeleri bul.
-YALNIZCA şu JSON listesiyle yanıt ver:
-[{"etiket": "<bölgenin sıra numarası>", "box_2d": [ymin, xmin, ymax, xmax]}]
-box_2d değerleri 0-1000 ölçeğinde normalize koordinatlardır.
 Emin olamadığın bölgeyi listeye hiç ekleme; uydurma kutu üretme.
 Sorunlu bölgeler:
 """
+
+
+class BoundingBoxKutusu(BaseModel):
+    etiket: str = Field(description="Bölgenin sıra numarası (1, 2, vb.)")
+    box_2d: list[int] = Field(description="[ymin, xmin, ymax, xmax] 0-1000 normalize koordinatları")
+
+
+class KutuKumesi(BaseModel):
+    kutular: list[BoundingBoxKutusu] = Field(description="Bulunan sorunlu bölgelerin sınırlayıcı kutuları listesi")
 
 
 def _kutulari_ciz(goruntu: Image.Image, kutular: list[dict]) -> Image.Image:
@@ -27,6 +27,21 @@ def _kutulari_ciz(goruntu: Image.Image, kutular: list[dict]) -> Image.Image:
     isaretli = goruntu.convert("RGB").copy()
     cizim = ImageDraw.Draw(isaretli)
     g, y = isaretli.size
+    
+    # Görsel boyutuna göre dinamik etiket font boyutu (yüksekliğin %2.5'i, min 14px)
+    font_size = max(14, int(y * 0.025))
+    try:
+        font = ImageFont.load_default()
+        # Sistem fontlarını dene
+        for f_ad in ("arial.ttf", "DejaVuSans.ttf", "LiberationSans-Regular.ttf"):
+            try:
+                font = ImageFont.truetype(f_ad, font_size)
+                break
+            except IOError:
+                continue
+    except Exception:
+        font = ImageFont.load_default()
+
     for kutu in kutular:
         try:
             ymin, xmin, ymax, xmax = kutu["box_2d"]
@@ -37,10 +52,20 @@ def _kutulari_ciz(goruntu: Image.Image, kutular: list[dict]) -> Image.Image:
         x2, y2 = min(g, xmax / 1000 * g), min(y, ymax / 1000 * y)
         if x2 <= x1 or y2 <= y1:
             continue
+        
         cizim.rectangle([x1, y1, x2, y2], outline=(220, 30, 30), width=4)
         etiket = str(kutu.get("etiket", "?"))
-        cizim.rectangle([x1, y1, x1 + 14 + 9 * len(etiket), y1 + 22], fill=(220, 30, 30))
-        cizim.text((x1 + 6, y1 + 4), etiket, fill=(255, 255, 255))
+        
+        # Etiket arka plan kutusu boyutunu hesapla
+        try:
+            left, top, right, bottom = font.getbbox(etiket)
+            tw = right - left
+            th = bottom - top
+        except AttributeError:
+            tw, th = len(etiket) * (font_size // 2), font_size
+            
+        cizim.rectangle([x1, y1, x1 + tw + 12, y1 + th + 10], fill=(220, 30, 30))
+        cizim.text((x1 + 6, y1 + 4), etiket, font=font, fill=(255, 255, 255))
     return isaretli
 
 
@@ -58,18 +83,24 @@ def bolgeleri_isaretle(
     try:
         istemci = _istemci()
         yanit = istemci.models.generate_content(
-            model=MODEL,
+            model=get_model(),
             contents=[
                 types.Part.from_bytes(data=goruntu_bytes, mime_type=mime_type),
                 KUTU_TALIMATI + liste,
             ],
-            config=types.GenerateContentConfig(response_mime_type="application/json"),
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=KutuKumesi,
+            ),
         )
-        kutular = json.loads(yanit.text)
-        if not isinstance(kutular, list) or not kutular:
+        data = json.loads(yanit.text)
+        kutular = data.get("kutular", [])
+        if not kutular:
             return None
+        
         import io
-
-        return _kutulari_ciz(Image.open(io.BytesIO(goruntu_bytes)), kutular)
+        # List of BoundingBoxKutusu dicts
+        kutular_sade = [{"etiket": k.get("etiket"), "box_2d": k.get("box_2d")} for k in kutular if "box_2d" in k]
+        return _kutulari_ciz(Image.open(io.BytesIO(goruntu_bytes)), kutular_sade)
     except Exception:
         return None

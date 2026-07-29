@@ -10,32 +10,38 @@ import os
 
 from google import genai
 from google.genai import types
+from pydantic import BaseModel, Field
 
 from personas import GENEL_TALIMAT, PERSONAS
 
-# Ücretsiz katmanda çalışan multimodal model; .env ile değiştirilebilir.
-MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+# Varsayılan model; Streamlit session_state içinden dinamik ezilebilir.
+DEFAULTS_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+MODEL = DEFAULTS_MODEL
 
-# Modelden istenen çıktı biçimi — her persona için aynı şema kullanılır ki
-# koordinatör katman (Sprint 2) çıktıları kolayca birleştirebilsin.
-CIKTI_SEMASI = """
-Analizini YALNIZCA şu JSON şemasında döndür:
-{
-  "bilissel_yuk_skoru": <1-100 arası tamsayı; 1=çok rahat, 100=aşırı yorucu>,
-  "genel_degerlendirme": "<2-3 cümlelik özet>",
-  "sorunlu_alanlar": [
-    {
-      "bolge": "<ekrandaki konum tarifi, örn: 'sağ üst köşedeki menü'>",
-      "sorun": "<sorunun açıklaması>",
-      "onem": "<yuksek|orta|dusuk>"
-    }
-  ],
-  "oneriler": ["<somut, uygulanabilir iyileştirme önerisi>", "..."],
-  "pozitif_yonler": ["<arayüzün bu persona için iyi yaptığı şeyler>", "..."]
-}
-Sorunları YALNIZCA görüntüde gerçekten gördüğün kanıtlara dayandır;
-görüntüde olmayan şeyler hakkında varsayım yapma. Türkçe yanıt ver.
-"""
+
+def get_model() -> str:
+    """Aktif modeli döner; streamlit session_state önceliklidir."""
+    try:
+        import streamlit as st
+        if "secilen_model" in st.session_state and st.session_state["secilen_model"]:
+            return st.session_state["secilen_model"]
+    except Exception:
+        pass
+    return DEFAULTS_MODEL
+
+
+class SorunluAlan(BaseModel):
+    bolge: str = Field(description="Ekrandaki konum tarifi, örn: 'sağ üst köşedeki menü'")
+    sorun: str = Field(description="Sorunun açıklaması")
+    onem: str = Field(description="Önem derecesi. Olası değerler: yuksek, orta, dusuk")
+
+
+class PersonaAnalizCiktisi(BaseModel):
+    bilissel_yuk_skoru: int = Field(ge=1, le=100, description="1-100 arası tamsayı; 1=çok rahat, 100=aşırı yorucu")
+    genel_degerlendirme: str = Field(description="2-3 cümlelik özet")
+    sorunlu_alanlar: list[SorunluAlan] = Field(description="En fazla 5 sorunlu alan listesi")
+    oneriler: list[str] = Field(description="Somut, uygulanabilir iyileştirme önerileri listesi")
+    pozitif_yonler: list[str] = Field(description="Arayüzün bu persona için iyi yaptığı şeyler listesi")
 
 
 # İstemci bir kez oluşturulup saklanır; her çağrıda yeniden oluşturulursa
@@ -68,7 +74,7 @@ def analiz_et(
 
     icerik: list = [
         types.Part.from_bytes(data=goruntu_bytes, mime_type=mime_type),
-        persona["prompt"] + "\n" + GENEL_TALIMAT + "\n" + CIKTI_SEMASI,
+        persona["prompt"] + "\n" + GENEL_TALIMAT,
     ]
     # HTML/CSS verilmişse yapısal analiz için ekle (token limiti için kırpılır).
     if html_kodu:
@@ -79,8 +85,11 @@ def analiz_et(
 
     istemci = _istemci()
     yanit = istemci.models.generate_content(
-        model=MODEL,
+        model=get_model(),
         contents=icerik,
-        config=types.GenerateContentConfig(response_mime_type="application/json"),
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=PersonaAnalizCiktisi,
+        ),
     )
     return json.loads(yanit.text)
