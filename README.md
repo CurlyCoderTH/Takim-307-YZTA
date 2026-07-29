@@ -129,9 +129,10 @@ Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulg
   ![Backlog 2](ProjectManagement/Sprint3Documents/backlog2.png)
 
 - **Ürün Durumu**: Ekran görüntüleri:
-  ![Ürün 1](ProjectManagement/Sprint3Documents/productss1.png)
-  ![Ürün 2](ProjectManagement/Sprint3Documents/productss2.png)
-  ![Ürün 3](ProjectManagement/Sprint3Documents/productss3.png)
+  ![Ürün 1](ProjectManagement/Sprint3Documents/product1.png)
+  ![Ürün 2](ProjectManagement/Sprint3Documents/product2.png)
+  ![Ürün 3](ProjectManagement/Sprint3Documents/product3.png)
+  ![Ürün 4](ProjectManagement/Sprint3Documents/product4.png)
 
 - **Sprint Review**:
 Alınan kararlar: Ürünün kararlı final sürümü başarıyla doğrulanmıştır. PDF rapor indirme özelliği test edilerek Türkçe karakter desteği ve görsel çıktılarla sorunsuz hale getirilmiştir. Ajan Hafızası (Agent Memory) entegrasyonu tamamlanmış; koordinatör ajanın geçmiş analiz raporlarını hafızasından karşılaştırması ve "Gelişim Yorumu" sunması sağlanmıştır. "Gelişim Analitiği" sayfasıyla geçmiş analizlerin bilişsel yük trend grafikleri Plotly ile görselleştirilmiştir. Çoklu persona ajanlarının analiz hızı, ThreadPoolExecutor ile paralel işleme geçilerek %55'in üzerinde artırılmıştır (analiz süresi 14 saniyeden 6 saniyenin altına düşürülmüştür). Playwright kaynak sızıntılarını önlemek için try-finally blokları ile tarayıcı kaynakları güvene alınmıştır. Pydantic şema desteğiyle LLM çıktılarının doğruluğu artırılmış, JSON ayrıştırma hataları giderilmiştir. Tanıtım videosu ve sunum dosyaları tamamlanmıştır. Sprint Review katılımcıları: Gökhan Dumlupınar, Tuana Hergüner, M.Buğrahan Bayrakçı, Mustafa Yazbahar, Şükran Akşimşek.
