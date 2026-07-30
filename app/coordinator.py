@@ -27,6 +27,8 @@ JSON raporları var. Görevin bunları SENTEZLEMEK — özetlemek değil:
   etkilediğine göre gerekçeli belirle.
 - Çelişki varsa (bir persona için iyi, diğeri için kötü olan tasarım) bunu
   açıkça belirt.
+- Uygun eylemler için 'kod_onerisi' alanına 2-4 satırlık örnek CSS düzeltmesi
+  yaz; anlamlı bir kod önerisi yoksa boş string bırak.
 """
 
 
@@ -35,6 +37,7 @@ class OncelikliEylem(BaseModel):
     sorun: str = Field(description="Bölge + sorunun kısa tarifi")
     etkilenen_personalar: list[str] = Field(description="Etkilenen persona isimleri listesi")
     oneri: str = Field(description="Somut iyileştirme adımı")
+    kod_onerisi: str = Field(default="", description="Mümkünse 2-4 satırlık örnek CSS düzeltmesi; yoksa boş string")
 
 
 class CoordinatorSentezCiktisi(BaseModel):

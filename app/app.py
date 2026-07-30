@@ -21,6 +21,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
+import feedback
 import gallery
 from analyzer import analiz_et
 from annotate import bolgeleri_isaretle
@@ -266,6 +267,7 @@ with st.sidebar:
             st.rerun()
 
     for nav in ({"ad": "Analiz Paneli", "ikon": "🔎"}, {"ad": "Gelişim Analitiği", "ikon": "📈"},
+                {"ad": "Geri Bildirim", "ikon": "💬"},
                 {"ad": "Ayarlar", "ikon": "⚙️"}, {"ad": "Kullanıcı Profili", "ikon": "👤"}):
         etiket = f"{nav['ikon']} {nav['ad']}" if durum["sol_panel_acik"] else nav["ikon"]
         if st.button(etiket, use_container_width=True, key=f"nav_{nav['ad']}"):
@@ -549,13 +551,15 @@ if durum["aktif_sekme"] == "Analiz Paneli":
             if e.get("oneri"):
                 satir += f" → **{e['oneri']}**"
             st.markdown(satir)
+            if e.get("kod_onerisi"):
+                st.code(e["kod_onerisi"], language="css")
 
-            if durum.get("isaretli_state") is not None:
-                st.markdown("### 📍 Sorunlu Bölgeler Görüntü Üzerinde")
-                _, orta, _ = st.columns([1, 2, 1])
-                with orta:
-                    st.image(durum["isaretli_state"], use_container_width=True)
-                    st.caption("Büyütmek için görüntünün üzerine gelip ⛶ simgesine tıklayın.")
+        if durum.get("isaretli_state") is not None:
+            st.markdown("### 📍 Sorunlu Bölgeler Görüntü Üzerinde")
+            _, orta, _ = st.columns([1, 2, 1])
+            with orta:
+                st.image(durum["isaretli_state"], use_container_width=True)
+                st.caption("Büyütmek için görüntünün üzerine gelip ⛶ simgesine tıklayın.")
 
         st.markdown("### 📋 Persona Bulguları")
         for anahtar, sonuc in durum["analiz_sonuclari_state"].items():
@@ -671,6 +675,25 @@ elif durum["aktif_sekme"] == "Gelişim Analitiği":
                             st.write(f"- {PERSONAS[k]['ad']}: {v.get('bilissel_yuk_skoru', 0)}/100")
                     except Exception as e:
                         st.error(f"Hata: {e}")
+
+elif durum["aktif_sekme"] == "Geri Bildirim":
+    st.markdown("### 💬 Geri Bildirim")
+    st.write("CogniTrace'i değerlendirin — görüşleriniz ürünü şekillendiriyor.")
+    with st.form("geri_bildirim_formu"):
+        gb_ad = st.text_input("İsim (opsiyonel)")
+        gb_puan = st.slider("Genel puanınız", 1, 5, 4)
+        gb_mesaj = st.text_area("Görüşleriniz", height=120)
+        gonderildi = st.form_submit_button("Gönder 📨")
+    if gonderildi and gb_mesaj.strip():
+        feedback.kaydet(gb_ad, gb_puan, gb_mesaj)
+        st.success("Teşekkürler! Geri bildiriminiz kaydedildi.")
+    kayitlar = feedback.listele()
+    if kayitlar:
+        with st.expander(f"Gelen geri bildirimler ({len(kayitlar)})"):
+            for k in reversed(kayitlar):
+                st.markdown(f"**{k['ad']}** — {'⭐' * k['puan']} · {k['tarih']}")
+                st.markdown(k["mesaj"])
+                st.divider()
 
 elif durum["aktif_sekme"] == "Ayarlar":
     st.markdown("### ⚙️ Sistem Ayarları")

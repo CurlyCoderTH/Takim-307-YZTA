@@ -22,10 +22,17 @@ CogniTrace
 
 ## Ürün Özellikleri
 
-- **Disleksi ve Tipografi Analizi:** Sayfadaki yazı tiplerini, satır aralıklarını ve metin yoğunluklarını okuma güçlüğü perspektifinden inceleme.
-- **Renk Körlüğü Kontrast Denetimi:** Farklı renk körlüğü tiplerine (Protanopia, Deuteranopia vb.) göre WCAG 2.2 standartlarında görsel analiz yapma.
-- **Bilişsel Yük Haritalandırma:** Pop-up'lar, dikkat dağıtıcı ögeler ve karmaşık menü yapıları üzerinden arayüzün zihinsel yorgunluk skorunu çıkarma.
-- **Yapay Zeka Ajan Orkestrasyonu:** Özelleşmiş alt ajanların (Specialist Agents) ortak bir hafıza (Memory) kullanarak entegre ve dinamik bir UX erişilebilirlik raporu oluşturması.
+- **Persona Bazlı Ajan Analizi:** Disleksi, renk körlüğü, DEHB ve düşük görme personaları; W3C COGA ve İngiliz Disleksi Derneği (BDA) rehberlerinden türetilmiş denetim kuralları
+- **Yapay Zeka Ajan Orkestrasyonu:** Paralel çalışan persona ajanları (ThreadPoolExecutor) ve bulguları sentezleyip gerekçeli genel skor üreten koordinatör ajan (pydantic şema doğrulamalı JSON çıktı)
+- **Ajan Hafızası ve Gelişim Analitiği:** Geçmiş analizlerle karşılaştırmalı gelişim yorumu; Plotly ile bilişsel yük trend grafikleri
+- **URL'den Otomatik Yakalama:** Headless Chromium ile tek adımda ekran görüntüsü + HTML kaynak kodu alımı
+- **axe-core Çapraz Doğrulama:** LLM bulgularının kural tabanlı WCAG taramasıyla bağımsız doğrulanması
+- **Görsel İşaretleme:** Sorunlu bölgelerin görüntü üzerinde numaralı kutularla gösterimi
+- **Simülasyonlar:** 4 tip renk körlüğü filtresi (deuteranopia, protanopia, tritanopia, akromatopsi) ve disleksi metin simülasyonu
+- **Raporlama:** Türkçe destekli PDF rapor, kopyalanabilir CSS düzeltme kodu önerileri
+- **Örnek Galerisi:** Kayıtlı analizlerin API bağlantısız gösterimi (çevrimdışı demo modu)
+- **Geri Bildirim Formu:** Kullanıcı değerlendirmelerinin uygulama içi toplanması
+- **Kalite Güvencesi:** 19 birim testi, ruff lint standardı, skor tutarlılık test aracı
 
 ## Hedef Kitle
 
@@ -108,9 +115,6 @@ Alınan kararlar: Koordinatör ajan sisteme entegre edilmiş; 4 personanın bulg
 
   - Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon yapılması planlanmıştır.
   - Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılmasına karar verilmiştir.
-
-  - Deploy adımının ilk güne bırakılması isabetli bulunmuş, olası entegrasyon risklerine karşı ilk gün tam kadro teknik senkronizasyon     yapılması planlanmıştır.
-  - Sunum, video ve deploy yoğunluğu nedeniyle Sprint 3 görev dağılımının çok daha keskin hatlarla yapılması kararlaştırılmıştır.
 
 ---
 
