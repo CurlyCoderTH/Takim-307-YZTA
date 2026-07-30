@@ -8,7 +8,6 @@ Takım 307
 
 - Gökhan Dumlupınar: Product Owner
 - Tuana Hergüner: Scrum Master 
-- M.Buğrahan Bayrakçı: Developer
 - Mustafa Yazbahar: Developer
 - Şükran Akşimşek: Developer
 
