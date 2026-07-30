@@ -1,0 +1,13 @@
+# İmaja girmemesi gerekenler
+app/.env
+app/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+app/vendor
+.git
+ProjectManagement
+docs
+backlog
+*.md
+!app/README.md
