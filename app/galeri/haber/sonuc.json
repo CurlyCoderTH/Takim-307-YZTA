@@ -1,0 +1,234 @@
+{
+  "sonuclar": {
+    "disleksi": {
+      "bilissel_yuk_skoru": 75,
+      "genel_degerlendirme": "Arayüz, disleksili kullanıcılar için önerilen sans-serif font tipi ve sola hizalı metin gibi olumlu özellikler barındırmaktadır. Ancak, ana makale içeriğindeki aşırı uzun satır uzunlukları ve yetersiz satır aralıkları, okuma akıcılığını ciddi şekilde etkileyerek bilişsel yükü artırmakta ve yorgunluğa neden olmaktadır. Bu durum, uzun süreli okumayı zorlaştırmaktadır.",
+      "sorunlu_alanlar": [
+        {
+          "bolge": "Ana makale içeriği (başlık altındaki tüm paragraf metinleri)",
+          "sorun": "Satır uzunlukları 60-70 karakter limitini ciddi şekilde aşmaktadır (görselde yaklaşık 140 karaktere kadar çıkmaktadır). Bu durum, disleksili okuyucuların bir satırdan diğerine geçerken gözlerini kaybetmesine neden olmakta ve metni takip etmeyi zorlaştırmaktadır.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Ana makale içeriği (başlık altındaki tüm paragraf metinleri)",
+          "sorun": "Metinlerin satır aralığı çok düşüktür (CSS'te 'line-height: 1;' olarak belirtilmiştir). British Dyslexia Association yönergelerine göre disleksili kullanıcılar için minimum 1.5x satır aralığı önerilir. Düşük satır aralığı, metnin yoğun ve birbirine yapışık görünmesine yol açarak okumayı yorucu hale getirmektedir.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Ana makale içeriği (tüm paragraf metinleri)",
+          "sorun": "Paragraflar genellikle uzun ve yoğun yapıdadır. Disleksili kullanıcılar için metni daha kısa, sindirilebilir parçalara bölmek, daha basit cümleler kullanmak ve paragraflar arasına daha fazla boşluk eklemek okuma kolaylığını artıracaktır.",
+          "onem": "orta"
+        },
+        {
+          "bolge": "Sağ sütundaki 'Top stories' ve 'Elsewhere on the BBC/Sport' bölümlerinin altındaki tarih/saat bilgileri",
+          "sorun": "Bu küçük metin alanlarındaki font boyutu, disleksili kullanıcılar için okunabilirliği zorlaştıracak kadar küçüktür ve satır aralığı da yetersizdir.",
+          "onem": "dusuk"
+        }
+      ],
+      "oneriler": [
+        "Ana makale içeriğinin bulunduğu sütunun genişliğini daraltarak satır uzunluklarını British Dyslexia Association'ın önerdiği 60-70 karakter aralığına getirin.",
+        "Tüm ana metin paragrafları için CSS'te 'line-height' değerini en az 1.5 veya 1.6 olarak güncelleyerek satır aralığını artırın.",
+        "Uzun paragrafları daha kısa, daha yönetilebilir metin bloklarına ayırın ve cümle yapılarını basitleştirerek okuma akıcılığını iyileştirin.",
+        "Sağ sütundaki tarih ve saat gibi ikincil metinlerin font boyutunu artırın ve satır aralığını iyileştirerek okunabilirliklerini sağlayın.",
+        "Kullanıcılara metin boyutunu, satır aralığını ve font stilini (örn. disleksi dostu fontlar) kişiselleştirebilmeleri için bir erişilebilirlik ayarları veya araç çubuğu sunmayı değerlendirin."
+      ],
+      "pozitif_yonler": [
+        "Arayüz, disleksili kullanıcılar için genellikle önerilen sans-serif font tipini ('ReithSans') kullanmaktadır.",
+        "Ana metinler sola hizalıdır (ragged right), bu da disleksili okuyucuların metinleri takip etmesini kolaylaştırır ve göz yorgunluğunu azaltır.",
+        "Arka plan rengi saf beyaz yerine hafif gri tonlu ('#F8F8F8') olduğu için, yoğun siyah metinle oluşabilecek parlamayı bir miktar azaltır ve görsel stresi önlemeye yardımcı olur.",
+        "Genel olarak, uzun metin bloklarında tamamı büyük harfle yazma veya aşırı italik/altı çizili metin kullanımı gibi disleksili kullanıcılar için zararlı olabilecek uygulamalardan kaçınılmıştır."
+      ]
+    },
+    "renk_korlugu": {
+      "bilissel_yuk_skoru": 85,
+      "genel_degerlendirme": "Arayüz, renk körü kullanıcılar için önemli erişilebilirlik sorunları barındırmaktadır. Özellikle linklerin ve aktif navigasyon öğelerinin sadece renkle ayrılması, bilişsel yükü artırmakta ve kullanım deneyimini ciddi şekilde olumsuz etkilemektedir. Sayfanın bazı kısımlarındaki düşük kontrast oranları da okunabilirliği azaltmaktadır.",
+      "sorunlu_alanlar": [
+        {
+          "bolge": "Ana haber metinleri içerisinde (örn. \"Uefa to boycott World Cups if Fifa plans approved\" başlığı altındaki paragraflar ve sağ sütundaki \"Top stories\", \"Elsewhere on the BBC\", \"Elsewhere in Sport\", \"Related topics\", \"More on this story\" bölümlerindeki makale başlıkları).",
+          "sorun": "Linkler, çevre metinden sadece renk (mavi) ile ayrılıyor ve altı çizili değil. Bu durum, renk körü kullanıcılar için linklerin normal metinden ayırt edilmesini imkansız veya çok zor hale getirir.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "\"SPORT\" başlığının hemen altındaki yatay navigasyon menüsü, özellikle \"Football\" sekmesi.",
+          "sorun": "Seçili olan \"Football\" sekmesi, sarı arka plan üzerinde turuncu renkte gösteriliyor. Bu renk kombinasyonu, özellikle kırmızı-yeşil renk körlüğü olan kullanıcılar için yeterli kontrast sunmuyor ve hangi sekmenin aktif olduğunu anlamayı zorlaştırıyor.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "\"FIFA World Cup\" başlığının altındaki, siyah zemin üzerindeki ikincil navigasyon öğeleri (örn. \"Results\", \"Top Scorers\", \"Teams\" yazıları).",
+          "sorun": "Koyu gri metinlerin siyah arka plan üzerinde kullanılması, kontrast oranını WCAG AA standardının altına düşürüyor. Bu, navigasyon öğelerinin okunurluğunu ciddi şekilde etkiler ve kullanıcıların bu elementleri ayırt etmesini zorlaştırır.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Sayfanın en alt kısmındaki footer alanı (örn. \"Terms of Use\", \"About the BBC\" vb. linkler).",
+          "sorun": "Koyu gri metinlerin açık gri arka plan üzerinde kullanılması, WCAG AA kontrast gereksinimlerini karşılamakta yetersiz kalabilir ve metinlerin okunmasını zorlaştırabilir, bu da kullanıcı yorgunluğuna neden olur.",
+          "onem": "orta"
+        }
+      ],
+      "oneriler": [
+        "Tüm linklere varsayılan olarak alt çizgi eklenmeli veya odaklandığında/üzerine gelindiğinde belirgin bir görsel ipucu (arka plan rengi değişimi, ikon) sağlanmalıdır.",
+        "Aktif menü öğeleri için renk kontrastı WCAG AA standardını karşılayacak şekilde iyileştirilmeli veya rengin yanı sıra bir ikon, kalın font veya alt çizgi gibi ek bir görsel gösterge eklenmelidir.",
+        "İkincil navigasyon çubuklarındaki metin renkleri, arka planla yeterli kontrast sağlayacak şekilde ayarlanmalı (örn. koyu gri yerine beyaz veya açık gri metin).",
+        "Footer alanındaki metin ve arka plan renklerinin kontrast oranı WCAG AA standardını karşılaması sağlanmalıdır."
+      ],
+      "pozitif_yonler": [
+        "Sayfa düzeni genel olarak temiz ve içeriğin hiyerarşik yapısı belirgin.",
+        "Ana başlıklar ve paragraflar arasındaki kontrast oranı çoğu yerde yeterli düzeyde.",
+        "Spor kategorileri için geniş bir seçim yelpazesi sunulmaktadır."
+      ]
+    },
+    "dehb": {
+      "bilissel_yuk_skoru": 80,
+      "genel_degerlendirme": "Bu arayüz, zengin ve çeşitli içerik sunma hedefiyle tasarlanmış olsa da, DEHB'li kullanıcılar için aşırı derecede karmaşık ve dikkat dağıtıcı bir yapıya sahip. Ana makaleye odaklanmayı güçleştiren çok sayıda harici link ve görsel, bilişsel yükü belirgin şekilde artırıyor ve kullanıcının temel görevini tamamlamasını zorlaştırıyor.",
+      "sorunlu_alanlar": [
+        {
+          "bolge": "Sayfanın sağ sütununda yer alan 'Top stories', 'Elsewhere on the BBC', 'Elsewhere in Sport' gibi bölümler",
+          "sorun": "Makalenin ana içeriğiyle doğrudan ilgili olmayan birçok makale başlığı ve görsel, sürekli dikkat dağıtıcı bir etki yaratarak kullanıcının ana makaleye odaklanmasını zorlaştırıyor ve bilişsel yükü artırıyor.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Sayfanın altındaki 'Shorts' başlığı altında yer alan yatay kaydırılabilir video oynatıcıları",
+          "sorun": "Video önizlemeleri (oynat düğmesi ve görsel içerikleriyle) ve sağdaki kaydırma okları, hareket izlenimi yaratarak kullanıcının gözünü sürekli olarak ana makaleden bu alana çekiyor. Bu, özellikle DEHB'li kullanıcılar için yüksek bir dikkat dağıtıcıdır.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Sayfanın en üstündeki global navigasyon menüsü (Home, News, Sport, Business, Technology, Health, Culture, More, Search linkleri)",
+          "sorun": "Çok fazla genel navigasyon seçeneği sunulması, kullanıcının ana görevi olan makale okumaya başlamadan önce bile fazla karar vermesine neden olabilir. Bu durum, zaten dağılmaya eğilimli dikkat için bir başlangıç engelidir.",
+          "onem": "orta"
+        },
+        {
+          "bolge": "'SPORT' başlığının hemen altındaki spor alt navigasyon menüsü (Home, Football, Cricket, Formula 1, Rugby U, Tennis, Golf, Cycling, Athletics, More linkleri)",
+          "sorun": "Okunmakta olan bir haber makalesi sayfasında, ana makaleyle doğrudan ilgili olmayan çok sayıda spor dalı linkinin bulunması, kullanıcının odaklanmasını zorlaştırır ve sürekli olarak diğer seçeneklere yönlendirebilir.",
+          "onem": "orta"
+        },
+        {
+          "bolge": "Makale içeriğinin altında, 'What happens next?' ve 'Analysis:' bölümlerinden sonra gelen 'Related topics' ve 'More on this story' başlıkları altındaki diğer makale linkleri",
+          "sorun": "Ana makale bitmeden hemen önce veya bittikten sonra, doğrudan farklı konulara veya aynı hikayenin farklı parçalarına yönlendiren çok sayıda link sunulması, kullanıcının mevcut okuma görevini tamamlamasını veya bilgiyi sindirmesini engeller.",
+          "onem": "orta"
+        }
+      ],
+      "oneriler": [
+        "Sağ sütundaki 'Top stories', 'Elsewhere on the BBC' ve 'Elsewhere in Sport' gibi dikkat dağıtıcı bölümlerin içerik yoğunluğu azaltılmalı veya ana makale içeriği ile daha belirgin bir görsel ayrım sağlanmalıdır (örneğin, daha az öne çıkan bağlantılar veya katlanabilir bölümler).",
+        "'Shorts' video karuseli, varsayılan olarak gizlenmeli veya otomatik oynatma olmaksızın daha az dikkat çekici bir tasarıma sahip olmalı, tercihen kullanıcının kararı ile açılan bir bölüm haline getirilebilir.",
+        "Sayfanın üst ve alt navigasyon menülerindeki link sayısı azaltılmalı veya bu linkler, kullanıcının ana görevi olan makale okuma akışını bozmayacak şekilde daha az öncelikli hale getirilmelidir. Bağlantılar daha net kategorize edilebilir.",
+        "Makalenin altındaki 'More on this story' ve 'Related topics' gibi bölümlerdeki linkler, makalenin sonuna doğru daha az yoğun bir şekilde sunulmalı veya bu bölümler, kullanıcının ana makaleyi tam olarak okuyup bitirdiğinden emin olunduktan sonra gösterilmelidir.",
+        "Okuma modları (Reader View) gibi özellikler sunularak, kullanıcının tüm dikkat dağıtıcı öğelerden arındırılmış bir ortamda makaleyi okuması sağlanabilir."
+      ],
+      "pozitif_yonler": [
+        "Ana makale başlığı ve içeriği, sayfanın merkezinde belirgin bir şekilde yer alıyor ve okunabilirlik için uygun yazı tipi boyutlarına sahip.",
+        "Makale içeriği, 'What are Infantino's plans?', 'How has Uefa reacted?' gibi alt başlıklarla mantıksal bölümlere ayrılmış, bu da konuyu takip etmeyi ve sindirmeyi kolaylaştırıyor.",
+        "Kaynak kodunda article, aside, nav gibi semantik HTML etiketlerinin ve görsel altı metinlerinin ('alt' nitelikleri) kullanılması, genel erişilebilirlik (örneğin ekran okuyucular için) açısından iyi bir temel sunuyor.",
+        "Haber içeriği güncel ve ilgili konuları ele alıyor.",
+        "Yazar bilgileri ve güncellenme tarihi gibi önemli meta bilgiler açıkça belirtilmiş."
+      ]
+    },
+    "dusuk_gorme": {
+      "bilissel_yuk_skoru": 85,
+      "genel_degerlendirme": "Arayüz, yaşlı ve düşük görme yetisine sahip kullanıcılar için ciddi erişilebilirlik sorunları barındırmaktadır. Özellikle metin boyutlandırmasını engelleyen ayarlar ve genel olarak küçük metinler, içeriğe erişimi zorlaştırmaktadır. Yoğun bilgi akışı ve küçük tıklama hedefleri de kullanıcı deneyimini olumsuz etkilemektedir.",
+      "sorunlu_alanlar": [
+        {
+          "bolge": "Sayfanın genel stil ayarları (CSS içinde body etiketi için)",
+          "sorun": "Kullanıcının metin boyutunu tarayıcı ayarlarıyla büyütmesini engelleyen 'text-size-adjust:none' özelliği kullanılmıştır. Bu, düşük görme yetisine sahip kullanıcılar için içeriğin okunamaz olmasına neden olabilir.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Üst navigasyon menüsü ('Home', 'News', 'Sport'), alt navigasyon menüsü ('Football', 'Cricket'), makale altındaki tarih bilgileri ('30 July 2026', 'Updated 2 hours ago'), sağ kenar çubuğundaki haber zaman damgaları ('2 hours ago', '4 hours ago') ve altbilgi metinleri.",
+          "sorun": "Birçok metin öğesi görsel olarak 16px'in altında görünüyor ve bazıları (özellikle zaman damgaları ve sağ kenar çubuğu başlıkları) düşük kontrasta sahip. Bu durum, yaşlı ve düşük görme yetisine sahip kullanıcılar için metinleri okumayı zorlaştırmaktadır.",
+          "onem": "yuksek"
+        },
+        {
+          "bolge": "Üst menüdeki 'Arama' ikonu, 'Daha Fazla' ikonu, ana navigasyon altındaki 'More' (Daha Fazla) butonu ve 'Shorts' bölümündeki video kaydırma okları.",
+          "sorun": "Birçok interaktif elementin (ikonlar ve bazı navigasyon linkleri) tıklama alanı 44x44 pikselden küçük görünmektedir, bu da motor becerileri kısıtlı veya titrek elleri olan kullanıcılar için yanlış tıklamalara yol açabilir.",
+          "onem": "orta"
+        },
+        {
+          "bolge": "Sağ kenar çubuğundaki 'Top stories', 'Elsewhere on the BBC', 'Elsewhere in Sport' bölümleri.",
+          "sorun": "Bu bölümlerde çok sayıda haber başlığı ve link, küçük metin boyutlarıyla ve yoğun bir şekilde listelenmiştir. Bu durum, kullanıcının görsel olarak taramasını ve istediği içeriği bulmasını zorlaştırarak bilişsel yükü artırır.",
+          "onem": "orta"
+        },
+        {
+          "bolge": "Sayfanın altındaki 'Shorts' bölümünde yer alan sağa ve sola kaydırma okları.",
+          "sorun": "Bu oklar görsel olarak içeriği kaydırmak için kullanılıyor ancak HTML kodunda veya görselde açıkça bir metin etiketi ile ilişkilendirilmemiş gibi görünüyor. Bu, ekran okuyucu kullananlar için bağlam eksikliğine yol açabilir.",
+          "onem": "dusuk"
+        }
+      ],
+      "oneriler": [
+        "CSS'deki 'text-size-adjust:none' özelliğini kaldırarak kullanıcıların tarayıcı ayarlarıyla metin boyutunu serbestçe ölçeklendirebilmesini sağlayın.",
+        "Sayfa genelindeki tüm gövde metinlerinin ve önemli navigasyon linklerinin minimum 16 piksel olmasını sağlayın. İkincil bilgileri (zaman damgaları gibi) en az 14 piksel ve yeterli kontrast oranına sahip olacak şekilde ayarlayın.",
+        "Tüm tıklanabilir elementlerin (butonlar, ikonlar, linkler) erişilebilir bir tıklama alanı (minimum 44x44 piksel) olmasını sağlayın. Gerekirse ikonlara görünmez ama erişilebilir metin etiketleri ekleyin.",
+        "Sağ kenar çubuğundaki yoğun bilgi akışını azaltmak veya metin boyutlarını artırarak daha okunaklı hale getirmek için düzenlemeler yapın. Her bir haber öğesinin tıklama alanını artırın.",
+        "'Shorts' bölümündeki kaydırma okları gibi yalnızca ikon olan elementlere, ekran okuyucular için açıklayıcı 'aria-label' veya başlık öznitelikleri ekleyin."
+      ],
+      "pozitif_yonler": [
+        "Arayüzün genel düzeni temizdir ve ana içerik alanı görsel olarak diğer bölümlerden net bir şekilde ayrılmıştır.",
+        "Makale başlıkları ve ana başlıklar yeterince büyük ve okunaklıdır, bu da ana içeriğin hızlıca anlaşılmasına yardımcı olur.",
+        "Odaklanma göstergeleri için CSS'de 'outline' ve 'box-shadow' tanımlamaları bulunmaktadır, bu da klavye ile gezinme için iyi bir temel oluşturur."
+      ]
+    }
+  },
+  "rapor": {
+    "genel_skor": 85,
+    "skor_gerekcesi": "Arayüz, birden fazla nöroçeşitli kullanıcı profili için ciddi erişilebilirlik sorunları barındırmaktadır. Özellikle metin boyutlandırma kısıtlamaları, düşük kontrast, yetersiz görsel ayırt edicilik ve aşırı bilgi yoğunluğu, bilişsel yükü artırarak genel kullanıcı deneyimini aşırı derecede yorucu hale getirmektedir.",
+    "yonetici_ozeti": "Mevcut web arayüzü, bazı olumlu yapısal unsurlara rağmen, farklı nörolojik profillere sahip kullanıcılar için önemli erişilebilirlik engelleri oluşturmaktadır. Düşük kontrast, kısıtlı metin ölçeklendirme, ana makale içeriğindeki okunabilirlik sorunları ve dikkat dağıtıcı aşırı içerik yoğunluğu, yüksek bilişsel yüke ve genel kullanıcı memnuniyetsizliğine yol açmaktadır. Bu temel sorunların giderilmesi, kapsayıcılık ve genel kullanıcı deneyimi açısından kritik öneme sahiptir.",
+    "ortak_sorunlar": [
+      "Birçok metin öğesi ve interaktif element için yetersiz kontrast oranları ve küçük font boyutları.",
+      "Linklerin ve aktif durumların sadece renk ile ayrılması, belirgin görsel ipuçlarının olmaması.",
+      "Sağ sütundaki ve sayfa altındaki ilişkisiz/yoğun içerik ile hareketli öğelerin ana içeriğe odaklanmayı zorlaştırması.",
+      "Ana makale metinlerinde aşırı uzun satır uzunlukları ve yetersiz satır aralıkları.",
+      "Kullanıcıların tarayıcı ayarlarıyla metin boyutunu büyütmesini engelleyen stil ayarları."
+    ],
+    "oncelikli_eylemler": [
+      {
+        "oncelik": "yuksek",
+        "sorun": "Linklerin ve navigasyon öğelerinin görsel ayırt edilebilirliği: Ana haber metinleri ve diğer linkler sadece renkle ayrılıyor, altı çizili değil. Aktif navigasyon öğeleri (örn. 'Football' sekmesi) yetersiz kontrast ile sadece renkle ayrılıyor.",
+        "etkilenen_personalar": [
+          "Renk Körlüğü",
+          "Düşük Görme / Yaşlı Kullanıcı"
+        ],
+        "oneri": "Tüm linklere varsayılan olarak alt çizgi eklenmeli veya odaklandığında belirgin bir görsel ipucu (arka plan rengi değişimi, ikon) sağlanmalıdır. Aktif menü öğeleri için renk kontrastı WCAG AA standardını karşılamalı ve rengin yanı sıra bir ikon, kalın font veya alt çizgi gibi ek bir görsel gösterge eklenmelidir.",
+        "kod_onerisi": "a{text-decoration:underline;}.nav-item.active{background-color:#333;color:#fff;border-bottom:2px solid #fff;}"
+      },
+      {
+        "oncelik": "yuksek",
+        "sorun": "Metin boyutlandırma ve kontrast sorunları: CSS'deki 'text-size-adjust:none' özelliği metin büyütmeyi engelliyor. Navigasyon, tarih, zaman damgaları ve sağ kenar çubuğu dahil birçok metin öğesi 16px'in altında ve/veya düşük kontrasta sahip. İkincil navigasyon ve footer metinleri siyah/koyu gri arka plan üzerinde düşük kontrasta sahip.",
+        "etkilenen_personalar": [
+          "Düşük Görme / Yaşlı Kullanıcı",
+          "Renk Körlüğü",
+          "Disleksi"
+        ],
+        "oneri": "CSS'deki 'text-size-adjust:none' özelliği kaldırılmalı. Sayfa genelindeki tüm ana metinler ve önemli navigasyon linkleri minimum 16 piksel olmalı. İkincil bilgiler en az 14 piksel ve yeterli kontrast oranına sahip olacak şekilde ayarlanmalı. Düşük kontrastlı bölgelerdeki metin ve arka plan renkleri WCAG AA standardına uygun hale getirilmeli.",
+        "kod_onerisi": "body{text-size-adjust:auto!important;}p,.nav-link{font-size:16px;}.secondary-text{font-size:14px;color:#555;}.fifa-nav-item{color:#fff;background-color:#000;}"
+      },
+      {
+        "oncelik": "yuksek",
+        "sorun": "Ana makale metin biçimlendirmesi: Ana makale içeriğinde satır uzunlukları 60-70 karakter limitini ciddi şekilde aşıyor ve metinlerin satır aralığı çok düşüktür ('line-height: 1;'). Paragraflar genellikle uzun ve yoğun yapıda.",
+        "etkilenen_personalar": [
+          "Disleksi"
+        ],
+        "oneri": "Ana makale içeriğinin bulunduğu sütunun genişliği daraltılarak satır uzunlukları 60-70 karakter aralığına getirilmeli. Tüm ana metin paragrafları için 'line-height' değeri en az 1.5 veya 1.6 olarak güncellenmeli. Uzun paragraflar daha kısa, daha yönetilebilir metin bloklarına ayrılmalı.",
+        "kod_onerisi": ".main-article-content{max-width:65ch;line-height:1.6;}.main-article-content p{margin-bottom:1em;}"
+      },
+      {
+        "oncelik": "orta",
+        "sorun": "Aşırı bilgi yükü ve dikkat dağınıklığı: Sağ sütundaki 'Top stories', 'Elsewhere' gibi makaleyle ilgisiz birçok makale başlığı ve görsel, sürekli dikkat dağıtıcı etki yaratıyor. 'Shorts' bölümündeki yatay kaydırılabilir video oynatıcıları hareket izlenimi yaratarak dikkat dağıtıyor. Genel navigasyon menülerinde çok fazla seçenek bulunuyor.",
+        "etkilenen_personalar": [
+          "DEHB (Dikkat Eksikliği)",
+          "Düşük Görme / Yaşlı Kullanıcı"
+        ],
+        "oneri": "Sağ sütundaki dikkat dağıtıcı bölümlerin içerik yoğunluğu azaltılmalı veya ana makale ile daha belirgin görsel ayrım sağlanmalı. 'Shorts' video karuseli varsayılan olarak gizlenmeli veya otomatik oynatma olmaksızın daha az dikkat çekici bir tasarıma sahip olmalı. Genel navigasyon seçenekleri sadeleştirilmeli veya daha net kategorize edilmelidir.",
+        "kod_onerisi": ".sidebar-sections{max-height:400px;overflow-y:auto;}.shorts-carousel{display:none;}"
+      },
+      {
+        "oncelik": "orta",
+        "sorun": "Küçük tıklama hedefleri: Üst menüdeki 'Arama' ikonu, 'Daha Fazla' ikonu, ana navigasyon altındaki 'More' butonu ve 'Shorts' bölümündeki video kaydırma okları gibi birçok interaktif elementin tıklama alanı 44x44 pikselden küçük. 'Shorts' kaydırma okları için ekran okuyucuya yönelik bağlam eksikliği.",
+        "etkilenen_personalar": [
+          "Düşük Görme / Yaşlı Kullanıcı"
+        ],
+        "oneri": "Tüm tıklanabilir elementlerin erişilebilir bir tıklama alanı (minimum 44x44 piksel) olmasını sağlayın. Gerekirse ikonlara görünmez ancak erişilebilir metin etiketleri (örn. 'aria-label') ekleyin.",
+        "kod_onerisi": "button,.icon-link{min-width:44px;min-height:44px;padding:8px;}/* HTML'e eklenecek: <button aria-label='Sonraki Videoları Gör'> */"
+      }
+    ],
+    "celiskiler": [],
+    "gelisim_yorumu": null,
+    "_yedek_mod": false
+  }
+}
