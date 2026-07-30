@@ -1,0 +1,2 @@
+# Streamlit Cloud bağımlılıkları repo kökünde arar; asıl liste app/ altında.
+-r app/requirements.txt

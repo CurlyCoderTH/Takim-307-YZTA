@@ -60,7 +60,11 @@ def sayfa_yakala(
         # Normalde playwright'ın kendi kurduğu Chromium kullanılır
         # (playwright install chromium). CI/sandbox ortamlarında hazır bir
         # binary varsa CHROMIUM_PATH ile gösterilebilir.
-        tarayici = p.chromium.launch(executable_path=os.getenv("CHROMIUM_PATH") or None)
+        ozel_yol = os.getenv("CHROMIUM_PATH") or None
+        tarayici = p.chromium.launch(
+            executable_path=ozel_yol,
+            args=["--no-sandbox"] if ozel_yol else [],
+        )
         try:
             sayfa = tarayici.new_page(viewport={"width": 1366, "height": 768})
             sayfa.goto(url, wait_until="domcontentloaded", timeout=zaman_asimi)
