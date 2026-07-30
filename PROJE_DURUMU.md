@@ -78,5 +78,3 @@ Detaylı sorun giderme: [app/README.md](app/README.md#sık-karşılaşılan-soru
 ## 7. Açık Notlar / Riskler
 
 - Gemini ücretsiz katman günlük kota limiti var → her üye kendi API anahtarını kullanmalı (Sprint 1 retrospektifinde alınan karar).
-- Genel skor hesaplama mantığı geçici (ortalama) — koordinatör ajan bunu değiştirecek, ilgili UI metriklerinin de gözden geçirilmesi gerekir.
-- `backlog/product-backlog.md` başlığında hâlâ eski ürün adı "EmpatiLens" geçiyor; README'de isim "CogniTrace" olarak güncellenmiş ama backlog dosyasının başlığı güncellenmemiş görünüyor — küçük bir tutarlılık düzeltmesi gerekebilir.
